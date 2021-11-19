@@ -5,6 +5,13 @@ from models.player import Player
 from views.views import HomeView, PlayersView, TournamentsView
 from tinydb import TinyDB
 
+# User = Query()
+
+
+class Controller:
+	# pour start, run and stop, en classe parente?
+	pass
+
 
 class HomeController:
 
@@ -26,10 +33,7 @@ class HomeController:
 			self.controller = TournamentsController()
 			self.controller.start()
 		else:
-			self.stop()
-
-	def stop(self):
-		sys.exit()
+			stop()
 
 
 class PlayersController:
@@ -60,15 +64,13 @@ class PlayersController:
 		elif choice == 3:
 			self.view.display_players_db(db)
 		elif choice == 4:
+			result = self.view.prompt_for_update_ranking()
+			update(int(result[0]), int(result[1]))
+		elif choice == 5:
 			self.controller = HomeController()
 			self.controller.start()
 		else:
-			self.stop()
-
-	def stop(self):
-		self.controller = None
-		self.view.end()
-		sys.exit()
+			stop()
 
 
 class TournamentsController:
@@ -95,12 +97,7 @@ class TournamentsController:
 			self.controller = HomeController()
 			self.controller.start()
 		else:
-			self.stop()
-
-	def stop(self):
-		self.controller = None
-		self.view.end()
-		sys.exit()
+			stop()
 
 
 def create_db():
@@ -111,5 +108,19 @@ def create_db():
 	return db
 
 
+def update(doc_id, ranking):
+	db = TinyDB("data/db.json", indent=4)
+	table = db.table("players")
+	table.update({"ranking": ranking}, doc_ids=[doc_id])
+	print(f"OK, le nouveau ranking de {doc_id} est {ranking}")
+
+
+def stop():
+	print("FIN.")
+	sys.exit()
+
+
 if __name__ == "__main__":
 	pass
+
+

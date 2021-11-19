@@ -52,6 +52,4 @@ class Tournament:
 
 
 if __name__ == "__main__":
-	new_tournament = Tournament()
-	new_tournament.auto_creation()
-	print(new_tournament)
+	pass
