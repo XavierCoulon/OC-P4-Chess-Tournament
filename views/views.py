@@ -2,11 +2,12 @@ import os
 from pprint import pprint
 
 
-class HomeView():
+class HomeView:
 	def __init__(self):
 		pass
 
-	def display_menu(self):
+	@staticmethod
+	def display_menu():
 		print("******* HOME MENU *******")
 		print("1. PLAYERS")
 		print("2. TOURNAMENT")
@@ -21,7 +22,7 @@ class PlayersView:
 		self.view = None
 
 	@staticmethod
-	def display_menu(self):
+	def display_menu():
 		print("******* PLAYERS MENU *******")
 		print("1. create manually a player.")
 		print("2. create automatically x player(s).")
@@ -33,21 +34,35 @@ class PlayersView:
 		os.system('cls' if os.name == "nt" else "clear")
 		return choice
 
-	def prompt_for_how_many_players(self):
+	@staticmethod
+	def prompt_for_how_many_players():
 		choice = input("How many players? ")
 		return choice
 
-	def prompt_for_update_ranking(self):
+	@staticmethod
+	def prompt_for_update_ranking():
 		player_id = input("ID player? ")
 		new_ranking = input("New ranking? ")
 		return [player_id, new_ranking]
 
-	def prompt_for_manual_creation_player(self):
+	@staticmethod
+	def prompt_for_manual_creation_player():
 		first_name = input("First name: ")
 		last_name = input("Last name: ")
-		return [first_name, last_name]
+		ranking = input("Ranking: ")
+		birth_date = input("Birth date: ")
+		gender = input("Gender (F or M): ")
+		description = input("Description: ")
+		return [
+			first_name,
+			last_name,
+			ranking,
+			birth_date,
+			gender,
+			description]
 
-	def display_players_db(self, db):
+	@staticmethod
+	def display_players_db(db):
 		players = db.table("players").all()
 		for player in players:
 			pprint(f"ID player = {player.doc_id}")
@@ -60,7 +75,8 @@ class TournamentsView:
 	def __init__(self):
 		self.view = None
 
-	def display_menu(self):
+	@staticmethod
+	def display_menu():
 		print("******* TOURNAMENT MENU *******")
 		print("1. create automatically tournament.")
 		print("2. display tournaments.")
@@ -70,5 +86,6 @@ class TournamentsView:
 		os.system('cls' if os.name == "nt" else "clear")
 		return choice
 
-	def display_tournaments_db(self, db):
+	@staticmethod
+	def display_tournaments_db(db):
 		pprint(db.table("tournaments").all())

@@ -1,3 +1,5 @@
+import controllers.main_controller
+
 from faker import Faker
 from random import choice
 
@@ -32,7 +34,7 @@ class Tournament:
 		self.players_list = []
 		self.rounds_list = []
 		self.game_type = choice(["Rapid", "Bullet", "Blitz"])
-		self.description = fake.text()
+		self.description = fake.text(max_nb_chars=20)
 
 	def serialize(self):
 		serialized_tournament = {
@@ -47,8 +49,8 @@ class Tournament:
 		}
 		return serialized_tournament
 
-	def save(self, serialized_tournament, db):
-		db.table("tournaments").insert(serialized_tournament)
+	def save(self, serialized_tournament):
+		controllers.main_controller.db.table("tournaments").insert(serialized_tournament)
 
 
 if __name__ == "__main__":
