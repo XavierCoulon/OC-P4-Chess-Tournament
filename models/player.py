@@ -44,5 +44,11 @@ class Player:
 		controllers.main_controller.db.table("players").insert(serialized_player)
 
 
+def update(doc_id, ranking):
+	table = controllers.main_controller.db.table("players")
+	table.update({"ranking": ranking}, doc_ids=[doc_id])
+	print(f"OK, le nouveau ranking de {doc_id} est {ranking}")
+
+
 if __name__ == "__main__":
 	pass

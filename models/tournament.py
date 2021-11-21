@@ -49,8 +49,15 @@ class Tournament:
 		}
 		return serialized_tournament
 
-	def save(self, serialized_tournament):
+	@staticmethod
+	def save(serialized_tournament):
 		controllers.main_controller.db.table("tournaments").insert(serialized_tournament)
+
+
+def add_players(doc_id, players):
+	table = controllers.main_controller.db.table("tournaments")
+	table.update({"players_list": players}, doc_ids=[int(doc_id)])
+	print(f"OK, {len(players)} players have been allocated to ID Tournament {doc_id}.")
 
 
 if __name__ == "__main__":

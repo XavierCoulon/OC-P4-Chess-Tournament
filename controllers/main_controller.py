@@ -22,12 +22,6 @@ class Controller:
 		pass
 
 
-def update(doc_id, ranking):
-	table = db.table("players")
-	table.update({"ranking": ranking}, doc_ids=[doc_id])
-	print(f"OK, le nouveau ranking de {doc_id} est {ranking}")
-
-
 def stop():
 	print("FIN.")
 	sys.exit()

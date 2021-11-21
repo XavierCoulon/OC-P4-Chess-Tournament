@@ -1,6 +1,6 @@
 import controllers.home_controller
-from controllers.main_controller import Controller, db, stop, update
-from models.player import Player
+from controllers.main_controller import Controller, db, stop
+from models.player import Player, update
 from views.views import HomeView
 
 
@@ -40,5 +40,3 @@ class PlayersController(Controller):
 
 if __name__ == "__main__":
 	pass
-
-
