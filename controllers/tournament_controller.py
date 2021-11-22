@@ -1,7 +1,7 @@
 import controllers.home_controller
 from controllers.main_controller import Controller, db, stop
 from models.tournament import Tournament, add_players
-from views.views import HomeView
+from views.home_view import HomeView
 
 
 class TournamentsController(Controller):
@@ -17,11 +17,11 @@ class TournamentsController(Controller):
 					dates=tournament[2],
 					game_type=tournament[3],
 					description=tournament[4])
-				new_tournament.save(new_tournament.serialize())
+				new_tournament.save()
 			elif choice == 2:
 				new_tournament = Tournament()
 				new_tournament.auto_creation()
-				new_tournament.save(new_tournament.serialize())
+				new_tournament.save()
 			elif choice == 3:
 				self.view.display_tournaments_db(db)
 			elif choice == 4:

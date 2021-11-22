@@ -1,6 +1,7 @@
 from controllers.player_controller import PlayersController
 from controllers.tournament_controller import TournamentsController
-from views.views import PlayersView, TournamentsView
+from views.tournament_view import TournamentsView
+from views.player_view import PlayersView
 from controllers.main_controller import Controller, stop
 
 

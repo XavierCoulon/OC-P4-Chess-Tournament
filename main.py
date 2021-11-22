@@ -1,6 +1,6 @@
 import controllers.main_controller
 import controllers.home_controller
-from views.views import HomeView
+from views.home_view import HomeView
 
 
 def main():

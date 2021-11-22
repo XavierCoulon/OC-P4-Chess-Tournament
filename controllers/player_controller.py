@@ -1,7 +1,7 @@
 import controllers.home_controller
 from controllers.main_controller import Controller, db, stop
 from models.player import Player, update
-from views.views import HomeView
+from views.home_view import HomeView
 
 
 class PlayersController(Controller):
@@ -18,14 +18,13 @@ class PlayersController(Controller):
 					birth_date=player[3],
 					gender=player[4],
 					description=player[5])
-				new_player.save(new_player.serialize())
+				new_player.save()
 			elif choice == 2:
 				number = self.view.prompt_for_how_many_players()
 				for player in range(int(number)):
 					new_player = Player()
 					new_player.auto_creation()
-					player_serialized = new_player.serialize()
-					new_player.save(player_serialized)
+					new_player.save()
 			elif choice == 3:
 				self.view.display_players_db(db)
 			elif choice == 4:
