@@ -3,6 +3,7 @@ import controllers.main_controller
 
 from faker import Faker
 from random import choice
+from controllers.main_controller import User
 
 
 class Tournament:
@@ -37,7 +38,7 @@ class Tournament:
 		self.game_type = choice(["Rapid", "Bullet", "Blitz"])
 		self.description = fake.text(max_nb_chars=20)
 
-	def save(self):
+	def serialize(self):
 		serialized_tournament = {
 			"name": self.name,
 			"location": self.location,
@@ -48,21 +49,23 @@ class Tournament:
 			"game_type": self.game_type,
 			"description": self.description
 		}
+		return serialized_tournament
+
+	def save(self, serialized_tournament):
 		controllers.main_controller.db.table("tournaments").upsert(
 			serialized_tournament,
-			controllers.main_controller.User.name == self.name
-		)
+			controllers.main_controller.User.name == self.name)
 
 
-def add_players(doc_id, players):
-	tournament = unserialize(doc_id)
+def add_players(tournament_name, players):
+	tournament = unserialize_tournament(tournament_name)
 	tournament.players_list = players
-	tournament.save()
-	print(f"OK, {len(players)} players have been allocated to ID Tournament {doc_id}.")
+	tournament.save(tournament.serialize())
+	print(f"OK, {len(players)} players have been allocated to Tournament {tournament_name}.")
 
 
-def unserialize(doc_id):
-	tournament = controllers.main_controller.db.table("tournaments").get(doc_id=int(doc_id))
+def unserialize_tournament(tournament_name):
+	tournament = controllers.main_controller.db.table("tournaments").get(User.name == tournament_name)
 	return Tournament(
 		name=tournament["name"],
 		location=tournament["location"],
@@ -75,28 +78,5 @@ def unserialize(doc_id):
 	)
 
 
-def first_pairing(doc_id):
-	table_players = controllers.main_controller.db.table("players")
-	players_list = controllers.main_controller.db.table("tournaments").get(doc_id=doc_id).get("players_list")
-	ranking_list = []
-	players_ranking_list = []
-	for player in players_list:
-		ranking = table_players.get(doc_id=player).get("ranking")
-		ranking_list.append(ranking)
-
-	for player, ranking in zip(players_list, ranking_list):
-		players_ranking_list.append([player, ranking])
-
-	print(players_ranking_list)
-	test = sorted(players_ranking_list, key=lambda element : element[1])
-	print(test)
-	for first, second in zip(test, test[int(len(test)/2):]):
-		print(first[0], second[0])
-	#table.update({"players_list": players}, doc_ids=[int(doc_id)])
-	#print(f"OK, {len(players)} players have been allocated to ID Tournament {doc_id}.")
-
-
 if __name__ == "__main__":
-	tournament = controllers.main_controller.db.table("tournaments").get(doc_id=1)
-	print(tournament["dates"])
-	print(Tournament(dates=tournament["dates"]).dates)
+	pass

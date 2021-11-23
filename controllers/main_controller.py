@@ -6,7 +6,6 @@ db = TinyDB("data/db.json", indent=4)
 User = Query()
 db.table("players")
 db.table("tournaments")
-db.table("rounds")
 
 
 class Controller:

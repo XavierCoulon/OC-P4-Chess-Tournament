@@ -13,8 +13,9 @@ class TournamentsView:
 		print("2. create automatically a tournament.")
 		print("3. display tournaments.")
 		print("4. add players.")
-		print("5. back to Home menu.")
-		print("6. QUIT.")
+		print("5. create first round.")
+		print("6. back to Home menu.")
+		print("7. QUIT.")
 		choice = int(input("Votre choix: "))
 		os.system('cls' if os.name == "nt" else "clear")
 		return choice
@@ -35,7 +36,7 @@ class TournamentsView:
 
 	@staticmethod
 	def prompt_for_allocating_players():
-		id_tournament = input("ID tournament: ")
+		id_tournament = input("Tournament name: ")
 		players = input("ID players to allocate (X Y Z..., will erase previous list): ")
 		return [id_tournament, players.split()]
 
@@ -48,3 +49,13 @@ class TournamentsView:
 			pprint(tournoi)
 			print("*************")
 			print("")
+
+	@staticmethod
+	def prompt_for_selecting_tournament():
+		tournament_name = input("Tournament name: ")
+		pprint(f"Round 1 has been created for Tournament  name {tournament_name}.")
+		return tournament_name
+
+	@staticmethod
+	def prompt_for_round_created():
+		pass
