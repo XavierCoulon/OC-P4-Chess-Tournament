@@ -14,8 +14,9 @@ class TournamentsView:
 		print("3. display tournaments.")
 		print("4. add players.")
 		print("5. create first round.")
-		print("6. back to Home menu.")
-		print("7. QUIT.")
+		print("6. result a round.")
+		print("7. back to Home menu.")
+		print("8. QUIT.")
 		choice = int(input("Votre choix: "))
 		os.system('cls' if os.name == "nt" else "clear")
 		return choice
@@ -53,7 +54,7 @@ class TournamentsView:
 	@staticmethod
 	def prompt_for_selecting_tournament():
 		tournament_name = input("Tournament name: ")
-		pprint(f"Round 1 has been created for Tournament  name {tournament_name}.")
+		#pprint(f"Round 1 has been created for Tournament  name {tournament_name}.")
 		return tournament_name
 
 	@staticmethod

@@ -6,13 +6,12 @@ class Match:
 		self.player2_result = player2_result
 
 	def serialize(self):
-		serialized_match= {
+		return {
 			"player1_id": self.player1_id,
 			"player2_id": self.player2_id,
 			"player1_result": self.player1_result,
 			"player2_result": self.player2_result,
 		}
-		return serialized_match
 
 	def result(self, player1_result, player2_result):
 		self.player1_result = player1_result
@@ -20,7 +19,7 @@ class Match:
 		return self
 
 
-def unserialize(match):
+def deserialize(match):
 	return Match(
 		player1_id=match["player1_id"],
 		player2_id=match["player2_id"],

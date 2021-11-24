@@ -54,4 +54,3 @@ class PlayersView:
 			pprint(player)
 			print("*************")
 			print("")
-

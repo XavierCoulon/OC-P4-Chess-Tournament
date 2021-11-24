@@ -1,6 +1,6 @@
-import controllers.main_controller
 import models.tournament
-import models.match
+from models.match import Match
+from controllers.main_controller import table_tournament, table_players, User
 
 
 class Round:
@@ -12,23 +12,19 @@ class Round:
 		self.finished = finished
 
 	def serialize(self):
-		serialized_round = {
+		return {
 			"name": self.name,
 			"start_date": self.start_date,
 			"end_date": self.end_date,
 			"match_list": self.match_list,
 			"finished": self.finished
 		}
-		return serialized_round
 
 	def first_pairing(self, tournament_name):
-		table_players = controllers.main_controller.db.table("players")
-		players_list = controllers.main_controller.db.table("tournaments").get(
-			controllers.main_controller.User.name == tournament_name).get("players_list")
+		players_list = table_tournament.get(User.name == tournament_name).get("players_list")
 		ranking_list = []
+		matches = []
 		players_ranking = []
-		matchs = []
-
 		for player in players_list:
 			ranking = table_players.get(doc_id=int(player)).get("ranking")
 			ranking_list.append(ranking)
@@ -36,16 +32,31 @@ class Round:
 			players_ranking.append([player, ranking])
 		sorted_players_ranking = sorted(players_ranking, key=lambda element: element[1])
 		for first, second in zip(sorted_players_ranking, sorted_players_ranking[int(len(sorted_players_ranking) / 2):]):
-			match = models.match.Match(player1_id=first[0], player2_id=second[0])
-			matchs.append(match.serialize())
-		self.match_list = matchs
+			match = [[first[0], 0], [second[0], 0]]
+			matches.append(match)
+		self.match_list = matches
 		self.name = 1
-		return self.serialize()
+		return self
+
+	def result_match(self):
+		for match in self.match_list:
+			choice = input(f"Result match 'player {match[0][0]} vs player {match[1][0]}' (1/N/2): ")
+			if choice == "1":
+				match[0][1] += 1
+				match[1][1] += 0
+			elif choice == "N":
+				match[0][1] += 0.5
+				match[1][1] += 0.5
+			else:
+				match[0][1] += 0
+				match[1][1] += 1
+		self.finished = True
+		return self
 
 
-def unserialize(tournament_name, round_number):
-	tournament = models.tournament.unserialize_tournament(tournament_name)
-	new_round = tournament.rounds_list[round_number-1]
+def deserialize_round(tournament_name):
+	tournament = models.tournament.deserialize_tournament(tournament_name)
+	new_round = tournament.rounds_list[-1]
 	return Round(
 		name=new_round["name"],
 		start_date=new_round["start_date"],

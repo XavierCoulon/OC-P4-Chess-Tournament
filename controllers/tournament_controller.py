@@ -1,8 +1,7 @@
 import controllers.home_controller
-import views.tournament_view
 from controllers.main_controller import Controller, db, stop
-from models.tournament import Tournament, add_players, unserialize_tournament
-from models.round import Round
+from models.tournament import Tournament, deserialize_tournament
+from models.round import Round, deserialize_round
 from views.home_view import HomeView
 from views.tournament_view import TournamentsView
 
@@ -20,24 +19,33 @@ class TournamentsController(Controller):
 					dates=tournament[2],
 					game_type=tournament[3],
 					description=tournament[4])
-				new_tournament.save(new_tournament.serialize())
+				new_tournament.save()
 			elif choice == 2:
 				new_tournament = Tournament()
 				new_tournament.auto_creation()
-				new_tournament.save(new_tournament.serialize())
+				new_tournament.save()
 			elif choice == 3:
 				self.view.display_tournaments_db(db)
 			elif choice == 4:
 				choice = self.view.prompt_for_allocating_players()
-				add_players(choice[0], choice[1])
+				tournament = deserialize_round(choice[0])
+				tournament.add_players(choice[1])
+				tournament.save()
 			elif choice == 5:
 				prompt = TournamentsView.prompt_for_selecting_tournament()
-				tournament = unserialize_tournament(prompt)
+				tournament = deserialize_tournament(prompt)
 				new_round = Round()
-				tournament.rounds_list = [new_round.first_pairing(prompt)]
-				tournament.save(tournament.serialize())
+				tournament.rounds_list = [new_round.first_pairing(prompt).serialize()]
+				tournament.save()
 				TournamentsView.prompt_for_round_created()
 			elif choice == 6:
+				prompt = TournamentsView.prompt_for_selecting_tournament()
+				tournament = deserialize_tournament(prompt)
+				round = deserialize_round(prompt)
+				round.result_match()
+				tournament.rounds_list[-1] = round.serialize()
+				tournament.save()
+			elif choice == 7:
 				self.controller = controllers.home_controller.HomeController()
 				self.controller.start(HomeView)
 			else:

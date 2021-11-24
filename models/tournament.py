@@ -1,9 +1,6 @@
-import controllers.main_controller
-
-
 from faker import Faker
 from random import choice
-from controllers.main_controller import User
+from controllers.main_controller import User, table_tournament
 
 
 class Tournament:
@@ -39,7 +36,7 @@ class Tournament:
 		self.description = fake.text(max_nb_chars=20)
 
 	def serialize(self):
-		serialized_tournament = {
+		return {
 			"name": self.name,
 			"location": self.location,
 			"dates": self.dates,
@@ -49,23 +46,17 @@ class Tournament:
 			"game_type": self.game_type,
 			"description": self.description
 		}
-		return serialized_tournament
 
-	def save(self, serialized_tournament):
-		controllers.main_controller.db.table("tournaments").upsert(
-			serialized_tournament,
-			controllers.main_controller.User.name == self.name)
+	def save(self):
+		table_tournament.upsert(self.serialize(), User.name == self.name)
 
-
-def add_players(tournament_name, players):
-	tournament = unserialize_tournament(tournament_name)
-	tournament.players_list = players
-	tournament.save(tournament.serialize())
-	print(f"OK, {len(players)} players have been allocated to Tournament {tournament_name}.")
+	def add_players(self, players):
+		self.players_list = players
+		print(f"OK, {len(players)} players have been allocated to Tournament {self.name}.")
 
 
-def unserialize_tournament(tournament_name):
-	tournament = controllers.main_controller.db.table("tournaments").get(User.name == tournament_name)
+def deserialize_tournament(tournament_name):
+	tournament = table_tournament.get(User.name == tournament_name)
 	return Tournament(
 		name=tournament["name"],
 		location=tournament["location"],

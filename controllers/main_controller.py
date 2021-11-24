@@ -4,8 +4,8 @@ from tinydb import TinyDB, Query
 
 db = TinyDB("data/db.json", indent=4)
 User = Query()
-db.table("players")
-db.table("tournaments")
+table_players = db.table("players")
+table_tournament = db.table("tournaments")
 
 
 class Controller:

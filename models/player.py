@@ -1,5 +1,4 @@
-import controllers.main_controller
-
+from controllers.main_controller import table_players, User
 from faker import Faker
 from random import randint, choice
 from datetime import datetime
@@ -24,8 +23,8 @@ class Player:
 		self.gender = choice(["F", "M"])
 		self.description = fake.text(max_nb_chars=20)
 
-	def save(self):
-		serialized_player = {
+	def serialize(self):
+		return {
 			"ranking": self.ranking,
 			"first_name": self.first_name,
 			"last_name": self.last_name,
@@ -33,23 +32,21 @@ class Player:
 			"gender": self.gender,
 			"description": self.description
 		}
-		controllers.main_controller.db.table("players").upsert(
-			serialized_player,
-			controllers.main_controller.User.first_name == self.first_name and
-			controllers.main_controller.User.last_name == self.last_name and
-			controllers.main_controller.User.birth_date == self.birth_date
+
+	def save(self):
+		table_players.upsert(
+			self.serialize(),
+			User.first_name == self.first_name and
+			User.last_name == self.last_name and
+			User.birth_date == self.birth_date
 		)
 
-
-def update(doc_id, ranking):
-	player = unserialize(doc_id)
-	player.ranking = ranking
-	player.save()
-	print(f"OK, le nouveau ranking de {doc_id} est {ranking}")
+	def update_ranking(self, ranking):
+		self.ranking = ranking
 
 
-def unserialize(doc_id):
-	player = controllers.main_controller.db.table("players").get(doc_id=doc_id)
+def deserialize(player_dict):
+	player = table_players.get(doc_id=player_dict)
 	return Player(
 		ranking=player["ranking"],
 		first_name=player["first_name"],
@@ -57,7 +54,7 @@ def unserialize(doc_id):
 		birth_date=player["birth_date"],
 		gender=player["gender"],
 		description=player["description"]
-)
+	)
 
 
 if __name__ == "__main__":

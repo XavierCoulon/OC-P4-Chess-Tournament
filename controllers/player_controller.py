@@ -1,6 +1,6 @@
 import controllers.home_controller
 from controllers.main_controller import Controller, db, stop
-from models.player import Player, update
+from models.player import Player, deserialize
 from views.home_view import HomeView
 
 
@@ -29,7 +29,9 @@ class PlayersController(Controller):
 				self.view.display_players_db(db)
 			elif choice == 4:
 				result = self.view.prompt_for_update_ranking()
-				update(int(result[0]), int(result[1]))
+				player = deserialize(int(result[0]))
+				player.update_ranking(int(result[1]))
+				player.save()
 			elif choice == 5:
 				self.controller = controllers.home_controller.HomeController()
 				self.controller.start(HomeView)
