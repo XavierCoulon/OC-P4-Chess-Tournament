@@ -332,7 +332,7 @@
                         [
                             [
                                 "6",
-                                2
+                                1
                             ],
                             [
                                 "4",
@@ -342,15 +342,159 @@
                         [
                             [
                                 "1",
+                                0.5
+                            ],
+                            [
+                                "2",
+                                0.5
+                            ]
+                        ]
+                    ],
+                    "finished": true
+                },
+                {
+                    "name": 2,
+                    "start_date": null,
+                    "end_date": null,
+                    "match_list": [
+                        [
+                            [
+                                "6",
                                 2
                             ],
                             [
                                 "2",
+                                0.5
+                            ]
+                        ],
+                        [
+                            [
+                                "1",
+                                1.5
+                            ],
+                            [
+                                "4",
                                 0
                             ]
                         ]
                     ],
                     "finished": true
+                },
+                {
+                    "name": 3,
+                    "start_date": null,
+                    "end_date": null,
+                    "match_list": [
+                        [
+                            [
+                                "6",
+                                2
+                            ],
+                            [
+                                "2",
+                                0.5
+                            ]
+                        ],
+                        [
+                            [
+                                "1",
+                                1.5
+                            ],
+                            [
+                                "4",
+                                0
+                            ]
+                        ]
+                    ],
+                    "finished": false
+                },
+                {
+                    "name": 4,
+                    "start_date": null,
+                    "end_date": null,
+                    "match_list": [
+                        [
+                            [
+                                "6",
+                                2
+                            ],
+                            [
+                                "2",
+                                0.5
+                            ]
+                        ],
+                        [
+                            [
+                                "1",
+                                1.5
+                            ],
+                            [
+                                "4",
+                                0
+                            ]
+                        ]
+                    ],
+                    "finished": false
+                },
+                {
+                    "name": 5,
+                    "start_date": null,
+                    "end_date": null,
+                    "match_list": [
+                        [
+                            [
+                                "6",
+                                2
+                            ],
+                            [
+                                "2",
+                                0.5
+                            ]
+                        ],
+                        [
+                            [
+                                "1",
+                                1.5
+                            ],
+                            [
+                                "4",
+                                0
+                            ]
+                        ]
+                    ],
+                    "finished": false
+                },
+                {
+                    "name": 6,
+                    "start_date": null,
+                    "end_date": null,
+                    "match_list": [
+                        [
+                            [
+                                "6",
+                                2,
+                                4
+                            ],
+                            [
+                                "1",
+                                1.5,
+                                11
+                            ]
+                        ],
+                        [
+                            [
+                                "2",
+                                0.5,
+                                14
+                            ],
+                            [
+                                "4",
+                                0,
+                                13
+                            ]
+                        ]
+                    ],
+                    "finished": false
                 }
             ],
             "game_type": "Rapid",

@@ -13,7 +13,7 @@ class TournamentsView:
 		print("2. create automatically a tournament.")
 		print("3. display tournaments.")
 		print("4. add players.")
-		print("5. create first round.")
+		print("5. create new round.")
 		print("6. result a round.")
 		print("7. back to Home menu.")
 		print("8. QUIT.")

@@ -30,12 +30,32 @@ class Round:
 			ranking_list.append(ranking)
 		for player, ranking in zip(players_list, ranking_list):
 			players_ranking.append([player, ranking])
-		sorted_players_ranking = sorted(players_ranking, key=lambda element: element[1])
-		for first, second in zip(sorted_players_ranking, sorted_players_ranking[int(len(sorted_players_ranking) / 2):]):
-			match = [[first[0], 0], [second[0], 0]]
-			matches.append(match)
-		self.match_list = matches
-		self.name = 1
+
+		if not self.match_list:
+			sorted_players_ranking = sorted(players_ranking, key=lambda element: element[1])
+			for first, second in zip(sorted_players_ranking, sorted_players_ranking[int(len(sorted_players_ranking) / 2):]):
+				match = [[first[0], 0], [second[0], 0]]
+				matches.append(match)
+			self.match_list = matches
+			self.name = 1
+		else:
+			players_ranking = sorted(players_ranking, key=lambda element: element[0])
+			last_round = self.match_list
+			refactor_last_round = []
+			for item in last_round:
+				refactor_last_round.append(item[0])
+				refactor_last_round.append(item[1])
+			print(refactor_last_round)
+			refactor_last_round = sorted(refactor_last_round, key=lambda element: element[0])
+			last_round_ranking = [
+				[x[0], x[1], y[1]] if x[0] == y[0] else 0 for (x, y) in zip(refactor_last_round, players_ranking)]
+			last_round_ranking = sorted(last_round_ranking, key=lambda x: (x[1], -x[2], x[0]), reverse=True)
+			new_round = []
+			for x, y in zip(*[iter(last_round_ranking)] * 2):
+				new_round.append([x, y])
+			self.match_list = new_round
+			self.name += 1
+			self.finished = False
 		return self
 
 	def result_match(self):
@@ -56,13 +76,16 @@ class Round:
 
 def deserialize_round(tournament_name):
 	tournament = models.tournament.deserialize_tournament(tournament_name)
-	new_round = tournament.rounds_list[-1]
-	return Round(
-		name=new_round["name"],
-		start_date=new_round["start_date"],
-		end_date=new_round["end_date"],
-		match_list=new_round["match_list"],
-		finished=new_round["finished"])
+	if not tournament.rounds_list:
+		return Round()
+	else:
+		new_round = tournament.rounds_list[-1]
+		return Round(
+			name=new_round["name"],
+			start_date=new_round["start_date"],
+			end_date=new_round["end_date"],
+			match_list=new_round["match_list"],
+			finished=new_round["finished"])
 
 
 if __name__ == "__main__":

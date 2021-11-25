@@ -34,8 +34,8 @@ class TournamentsController(Controller):
 			elif choice == 5:
 				prompt = TournamentsView.prompt_for_selecting_tournament()
 				tournament = deserialize_tournament(prompt)
-				new_round = Round()
-				tournament.rounds_list = [new_round.first_pairing(prompt).serialize()]
+				new_round = deserialize_round(prompt)
+				tournament.rounds_list += [new_round.first_pairing(prompt).serialize()]
 				tournament.save()
 				TournamentsView.prompt_for_round_created()
 			elif choice == 6:
