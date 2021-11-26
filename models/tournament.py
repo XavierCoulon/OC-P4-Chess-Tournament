@@ -54,19 +54,19 @@ class Tournament:
 		self.players_list = players
 		print(f"OK, {len(players)} players have been allocated to Tournament {self.name}.")
 
-
-def deserialize_tournament(tournament_name):
-	tournament = table_tournament.get(User.name == tournament_name)
-	return Tournament(
-		name=tournament["name"],
-		location=tournament["location"],
-		dates=tournament["dates"],
-		rounds_number=tournament["rounds_number"],
-		players_list=tournament["players_list"],
-		rounds_list=tournament["rounds_list"],
-		game_type=tournament["game_type"],
-		description=tournament["description"]
-	)
+	@staticmethod
+	def deserialize(tournament_name):
+		tournament = table_tournament.get(User.name == tournament_name)
+		return Tournament(
+			name=tournament["name"],
+			location=tournament["location"],
+			dates=tournament["dates"],
+			rounds_number=tournament["rounds_number"],
+			players_list=tournament["players_list"],
+			rounds_list=tournament["rounds_list"],
+			game_type=tournament["game_type"],
+			description=tournament["description"]
+		)
 
 
 if __name__ == "__main__":

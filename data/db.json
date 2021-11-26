@@ -1,7 +1,7 @@
 {
     "players": {
         "1": {
-            "ranking": 11,
+            "ranking": 1,
             "first_name": "H\u00e9l\u00e8ne",
             "last_name": "Coste",
             "birth_date": "05/27/2019",
@@ -80,16 +80,8 @@
             "gender": "M",
             "description": "Minute accord nord."
         },
-        "11": {
-            "ranking": "22",
-            "first_name": "Xavier",
-            "last_name": "COULON",
-            "birth_date": "9",
-            "gender": "M",
-            "description": "Yes"
-        },
         "12": {
-            "ranking": "98",
+            "ranking": 98,
             "first_name": "Roger",
             "last_name": "Sebastien",
             "birth_date": "12/12",
@@ -169,7 +161,7 @@
             "description": "Gris pens\u00e9e soudain."
         },
         "22": {
-            "ranking": "22",
+            "ranking": 22,
             "first_name": "Benoit",
             "last_name": "TEST",
             "birth_date": "12/11",
@@ -183,6 +175,30 @@
             "birth_date": "02/08/2003",
             "gender": "M",
             "description": "Rang ouvert par."
+        },
+        "24": {
+            "ranking": 4,
+            "first_name": "Emmanuelle",
+            "last_name": "Dupuy",
+            "birth_date": "10/18/2007",
+            "gender": "M",
+            "description": "Gouvernement."
+        },
+        "25": {
+            "ranking": 8,
+            "first_name": "Caroline",
+            "last_name": "Valentin",
+            "birth_date": "07/10/1964",
+            "gender": "F",
+            "description": "Bon diriger pointe."
+        },
+        "26": {
+            "ranking": 90,
+            "first_name": "Test",
+            "last_name": "Pourri",
+            "birth_date": "1/12/34",
+            "gender": "F",
+            "description": "Test"
         }
     },
     "tournaments": {
@@ -202,14 +218,14 @@
             "dates": [],
             "rounds_number": 4,
             "players_list": [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8"
             ],
             "rounds_list": [
                 {
@@ -463,38 +479,6 @@
                         ]
                     ],
                     "finished": false
-                },
-                {
-                    "name": 6,
-                    "start_date": null,
-                    "end_date": null,
-                    "match_list": [
-                        [
-                            [
-                                "6",
-                                2,
-                                4
-                            ],
-                            [
-                                "1",
-                                1.5,
-                                11
-                            ]
-                        ],
-                        [
-                            [
-                                "2",
-                                0.5,
-                                14
-                            ],
-                            [
-                                "4",
-                                0,
-                                13
-                            ]
-                        ]
-                    ],
-                    "finished": false
                 }
             ],
             "game_type": "Rapid",
@@ -507,9 +491,9 @@
             "rounds_number": 4,
             "players_list": [
                 "1",
-                "6",
-                "8",
-                "10"
+                "2",
+                "4",
+                "6"
             ],
             "rounds_list": [
                 {
@@ -517,24 +501,42 @@
                     "start_date": null,
                     "end_date": null,
                     "match_list": [
-                        {
-                            "player1_id": "6",
-                            "player2_id": "8",
-                            "player1_result": null,
-                            "player2_result": null
-                        },
-                        {
-                            "player1_id": "10",
-                            "player2_id": "1",
-                            "player1_result": null,
-                            "player2_result": null
-                        }
+                        [
+                            [
+                                "6",
+                                0
+                            ],
+                            [
+                                "8",
+                                0
+                            ]
+                        ],
+                        [
+                            [
+                                "10",
+                                0
+                            ],
+                            [
+                                "1",
+                                0
+                            ]
+                        ]
                     ],
                     "finished": false
                 }
             ],
             "game_type": "Blitz",
             "description": "Quinze haut."
+        },
+        "5": {
+            "name": "\u00c9dith",
+            "location": "Guillon",
+            "dates": [],
+            "rounds_number": 4,
+            "players_list": [],
+            "rounds_list": [],
+            "game_type": "Blitz",
+            "description": "Rose que toujours."
         }
     }
 }

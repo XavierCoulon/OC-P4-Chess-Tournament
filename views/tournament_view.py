@@ -1,5 +1,6 @@
 import os
 from pprint import pprint
+from controllers.main_controller import table_tournament, table_players
 
 
 class TournamentsView:
@@ -42,14 +43,12 @@ class TournamentsView:
 		return [id_tournament, players.split()]
 
 	@staticmethod
-	def display_tournaments_db(db):
-		tournois = db.table("tournaments")
-		for tournoi in tournois:
-			# display more info, as players_list (in progress...)
-			pprint(f"ID tournament = {tournoi.doc_id}")
-			pprint(tournoi)
+	def display_tournaments():
+		for tournoi in table_tournament:
+			pprint(f"Tournament: ID={tournoi.doc_id}| {tournoi.get('name')} | {tournoi.get('game_type')}")
+			pprint(f"Description: {tournoi.get('description')}")
+			pprint(f"Dates: {tournoi.get('description')}")
 			print("*************")
-			print("")
 
 	@staticmethod
 	def prompt_for_selecting_tournament():

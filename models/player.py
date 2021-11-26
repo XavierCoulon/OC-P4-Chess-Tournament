@@ -44,17 +44,17 @@ class Player:
 	def update_ranking(self, ranking):
 		self.ranking = ranking
 
-
-def deserialize(player_dict):
-	player = table_players.get(doc_id=player_dict)
-	return Player(
-		ranking=player["ranking"],
-		first_name=player["first_name"],
-		last_name=player["last_name"],
-		birth_date=player["birth_date"],
-		gender=player["gender"],
-		description=player["description"]
-	)
+	@staticmethod
+	def deserialize(player_dict):
+		player = table_players.get(doc_id=player_dict)
+		return Player(
+			ranking=player["ranking"],
+			first_name=player["first_name"],
+			last_name=player["last_name"],
+			birth_date=player["birth_date"],
+			gender=player["gender"],
+			description=player["description"]
+		)
 
 
 if __name__ == "__main__":

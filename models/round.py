@@ -1,7 +1,6 @@
 import models.tournament
-from models.match import Match
 from controllers.main_controller import table_tournament, table_players, User
-
+from models.tournament import Tournament
 
 class Round:
 	def __init__(self, name=None, start_date=None, end_date=None, match_list=None, finished=False):
@@ -73,19 +72,19 @@ class Round:
 		self.finished = True
 		return self
 
-
-def deserialize_round(tournament_name):
-	tournament = models.tournament.deserialize_tournament(tournament_name)
-	if not tournament.rounds_list:
-		return Round()
-	else:
-		new_round = tournament.rounds_list[-1]
-		return Round(
-			name=new_round["name"],
-			start_date=new_round["start_date"],
-			end_date=new_round["end_date"],
-			match_list=new_round["match_list"],
-			finished=new_round["finished"])
+	@staticmethod
+	def deserialize(tournament_name):
+		tournament = Tournament.deserialize(tournament_name)
+		if not tournament.rounds_list:
+			return Round()
+		else:
+			new_round = tournament.rounds_list[-1]
+			return Round(
+				name=new_round["name"],
+				start_date=new_round["start_date"],
+				end_date=new_round["end_date"],
+				match_list=new_round["match_list"],
+				finished=new_round["finished"])
 
 
 if __name__ == "__main__":
