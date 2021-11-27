@@ -1,6 +1,6 @@
 import os
 from pprint import pprint
-from controllers.main_controller import table_tournament, table_players
+from controllers.main_controller import table_tournament
 
 
 class TournamentsView:
@@ -10,14 +10,14 @@ class TournamentsView:
 	@staticmethod
 	def display_menu():
 		print("******* TOURNAMENT MENU *******")
-		print("1. create manually a tournament.")
-		print("2. create automatically a tournament.")
-		print("3. display tournaments.")
-		print("4. add players.")
-		print("5. create new round.")
-		print("6. result a round.")
-		print("7. back to Home menu.")
-		print("8. QUIT.")
+		print("1. Create manually a tournament.")
+		print("2. Add players.")
+		print("3. Create a new round.")
+		print("4. Result last round.")
+		print("5. Back to Home menu.")
+		print("6. QUIT.")
+		print("***************")
+		print("7. Create automatically a tournament.")
 		choice = int(input("Votre choix: "))
 		os.system('cls' if os.name == "nt" else "clear")
 		return choice
@@ -43,6 +43,11 @@ class TournamentsView:
 		return [id_tournament, players.split()]
 
 	@staticmethod
+	def allocated_players():
+		print("OK, players have been allocated.")
+		input("")
+
+	@staticmethod
 	def display_tournaments():
 		for tournoi in table_tournament:
 			pprint(f"Tournament: ID={tournoi.doc_id}| {tournoi.get('name')} | {tournoi.get('game_type')}")
@@ -53,9 +58,14 @@ class TournamentsView:
 	@staticmethod
 	def prompt_for_selecting_tournament():
 		tournament_name = input("Tournament name: ")
-		#pprint(f"Round 1 has been created for Tournament  name {tournament_name}.")
 		return tournament_name
 
 	@staticmethod
-	def prompt_for_round_created():
-		pass
+	def players_missing():
+		print("No players allocated on this tournament.")
+		input("")
+
+	@staticmethod
+	def rounds_limit_reached():
+		print("Limit of rounds by tournament already reached.")
+		input("")

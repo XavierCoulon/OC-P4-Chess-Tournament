@@ -92,23 +92,22 @@ class ReportsController(Controller):
 	def all_rounds(tournament_name):
 		rounds = table_tournament.get(User.name == tournament_name).get("rounds_list")
 		rounds_data = []
-		for round in rounds:
+		for tour in rounds:
 			round_data = [
-				round.get("name"),
-				round.get("start_date"),
-				round.get("end_date"),
-				round.get("finished")
+				tour.get("name"),
+				tour.get("start_date"),
+				tour.get("end_date"),
+				tour.get("finished")
 			]
 			rounds_data.append(round_data)
-		print(rounds_data)
 		return sorted(rounds_data, key=lambda x: x[0])
 
 	@staticmethod
 	def all_matches(tournament_name):
 		rounds_list = table_tournament.get(User.name == tournament_name).get("rounds_list")
 		matches = []
-		for round in rounds_list:
-			matches.append(round.get("match_list"))
+		for tour in rounds_list:
+			matches.append(tour.get("match_list"))
 		return matches
 
 

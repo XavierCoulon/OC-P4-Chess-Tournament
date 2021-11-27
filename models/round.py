@@ -1,6 +1,7 @@
-import models.tournament
 from controllers.main_controller import table_tournament, table_players, User
 from models.tournament import Tournament
+from datetime import datetime
+
 
 class Round:
 	def __init__(self, name=None, start_date=None, end_date=None, match_list=None, finished=False):
@@ -44,19 +45,21 @@ class Round:
 			for item in last_round:
 				refactor_last_round.append(item[0])
 				refactor_last_round.append(item[1])
-			print(refactor_last_round)
-			refactor_last_round = sorted(refactor_last_round, key=lambda element: element[0])
+			refactor_last_round = sorted(refactor_last_round, key=lambda element: element[0][0])
 			last_round_ranking = [
 				[x[0], x[1], y[1]] if x[0] == y[0] else 0 for (x, y) in zip(refactor_last_round, players_ranking)]
 			last_round_ranking = sorted(last_round_ranking, key=lambda x: (x[1], -x[2], x[0]), reverse=True)
 			new_round = []
 			for x, y in zip(*[iter(last_round_ranking)] * 2):
-				new_round.append([x, y])
+				new_round.append([[x[0], x[1]], [y[0], y[1]]])
 			self.match_list = new_round
 			self.name += 1
-			self.finished = False
+		self.start_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+		self.end_date = None
+		self.finished = False
 		return self
 
+	#a revoir...
 	def result_match(self):
 		for match in self.match_list:
 			choice = input(f"Result match 'player {match[0][0]} vs player {match[1][0]}' (1/N/2): ")
@@ -70,6 +73,7 @@ class Round:
 				match[0][1] += 0
 				match[1][1] += 1
 		self.finished = True
+		self.end_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 		return self
 
 	@staticmethod

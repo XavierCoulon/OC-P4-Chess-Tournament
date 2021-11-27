@@ -2,6 +2,7 @@ import sys
 
 from tinydb import TinyDB, Query
 
+MAX_ROUNDS_NUMBER = 4
 db = TinyDB("data/db.json", indent=4)
 User = Query()
 table_players = db.table("players")

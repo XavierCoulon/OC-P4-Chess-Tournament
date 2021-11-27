@@ -1,6 +1,4 @@
 import os
-from pprint import pprint
-from controllers.main_controller import table_tournament, table_players
 
 
 class ReportsView:
@@ -18,6 +16,7 @@ class ReportsView:
 		print("6. All rounds of a tournament.")
 		print("7. All matches of a tournament.")
 		print("8. Back to Home Menu.")
+		print("9. QUIT.")
 		choice = int(input("Votre choix: "))
 		os.system('cls' if os.name == "nt" else "clear")
 		return choice
@@ -27,7 +26,7 @@ class ReportsView:
 		print("*******PLAYER's LIST *******")
 		for player in players_data:
 			print(f"ID: {player[0]} | Nom: {player[1]} | Prénom: {player[2]} | Ranking: {player[3]} |")
-		print("")
+		input("")
 
 	@staticmethod
 	def display_tournaments(tournaments):
@@ -36,23 +35,23 @@ class ReportsView:
 			print(
 				f"Name: {tournament[0]} | ID: {tournament[1]} | Players list: {tournament[2]}"
 				f" Location: {tournament[3]} | Game Type: {tournament[4]} | Description: {tournament[5]}")
-		print("")
+		input("")
 
 	@staticmethod
 	def display_rounds(rounds_data, tournament_name):
 		print("*******ROUND's LIST *******")
 		print(f"Tournament: {tournament_name}")
-		for round in rounds_data:
-			print(f"Round {round[0]} | Start date: {round[1]} | End date: {round[2]} | Finished: {round[3]}")
-		print("")
+		for element in rounds_data:
+			print(f"Round {element[0]} | Start date: {element[1]} | End date: {element[2]} | Finished: {element[3]}")
+		input("")
 
 	@staticmethod
 	def display_matches(matches_data, tournament_name):
 		print("*******MATCHES' LIST *******")
 		print(f"Tournament: {tournament_name}")
-		compteur = 1
-		for round in matches_data:
-			for match in round:
-				print(f"Round {compteur}: Player {match[0][0]} vs {match[1][0]} (score {match[0][1]} - {match[1][1]})")
-			compteur += 1
-		print("")
+		counter = 1
+		for tour in matches_data:
+			for match in tour:
+				print(f"Round {counter}: Player {match[0][0]} vs {match[1][0]} (score {match[0][1]} - {match[1][1]})")
+			counter += 1
+		input("")
