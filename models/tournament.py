@@ -17,7 +17,7 @@ class Tournament:
 		self.name = name
 		self.location = location
 		self.dates = dates
-		self.players_list = players_list or []
+		self.players_list = players_list or {}
 		self.rounds_list = rounds_list or []
 		self.game_type = game_type
 		self.description = description
@@ -47,7 +47,10 @@ class Tournament:
 		table_tournament.upsert(self.serialize(), User.name == self.name)
 
 	def add_players(self, players):
-		self.players_list = players
+		players_list = {}
+		for player in players:
+			players_list[str(player)] = 0
+		self.players_list = players_list
 
 	@staticmethod
 	def deserialize(tournament_name):

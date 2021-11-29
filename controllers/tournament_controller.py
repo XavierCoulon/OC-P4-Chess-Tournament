@@ -1,7 +1,9 @@
 import controllers.home_controller
-from controllers.main_controller import Controller, stop, MAX_ROUNDS_NUMBER
+import views.reports_view
+from controllers.main_controller import Controller, stop, MAX_ROUNDS_NUMBER, table_tournament
 from models.tournament import Tournament
 from models.round import Round
+from models.match import Match
 from views.home_view import HomeView
 from views.tournament_view import TournamentsView
 
@@ -26,10 +28,13 @@ class TournamentsController(Controller):
 				new_tournament.save()
 			elif choice == 2:
 				choice = self.view.prompt_for_allocating_players()
-				tournament = Tournament.deserialize(choice[0])
-				tournament.add_players(choice[1])
-				self.view.allocated_players()
-				tournament.save()
+				if not table_tournament.get(doc_id=choice[0]):
+					self.view.tournament_not_found()
+				else:
+					tournament = Tournament.deserialize(choice[0])
+					tournament.add_players(choice[1])
+					self.view.allocated_players()
+					tournament.save()
 			elif choice == 3:
 				prompt = TournamentsView.prompt_for_selecting_tournament()
 				tournament = Tournament.deserialize(prompt)
@@ -41,13 +46,20 @@ class TournamentsController(Controller):
 						break
 					else:
 						new_round = Round.deserialize(prompt)
-						tournament.rounds_list += [new_round.first_pairing(prompt).serialize()]
+						tournament.rounds_list += [new_round.create_round(prompt).serialize()]
 						tournament.save()
 			elif choice == 4:
 				prompt = TournamentsView.prompt_for_selecting_tournament()
 				tournament = Tournament.deserialize(prompt)
 				tour = Round.deserialize(prompt)
-				tour.result_match()
+				new_match_list = []
+				for match in tour.match_list:
+					match_instance = Match.deserialize(match)
+					result = TournamentsView.prompt_for_resulting(match_instance.player1_id, match_instance.player2_id)
+					match_instance.result(result, tournament)
+					new_match_list.append(match_instance.serialize())
+				tour.match_list = new_match_list
+				tour.close()
 				tournament.rounds_list[-1] = tour.serialize()
 				tournament.save()
 			elif choice == 5:

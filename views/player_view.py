@@ -44,3 +44,8 @@ class PlayersView:
 			birth_date,
 			gender,
 			description]
+
+	@staticmethod
+	def player_not_found():
+		print("Player not found in db.")
+		input("")

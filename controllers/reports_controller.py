@@ -1,9 +1,11 @@
 import controllers.home_controller
+import views.reports_view
 from controllers.main_controller import Controller, stop, User
 from controllers.main_controller import table_tournament, table_players
 from views.home_view import HomeView
 from views.tournament_view import TournamentsView
 from views.reports_view import ReportsView
+from models.match import Match
 
 
 class ReportsController(Controller):
@@ -15,20 +17,21 @@ class ReportsController(Controller):
 				ReportsView.display_players(self.all_players("r"))
 			elif choice == 2:
 				ReportsView.display_players(self.all_players("a"))
-			elif choice == 3 or choice == 4:
+			elif choice in [3, 4, 6, 7]:
 				tournament_name = TournamentsView.prompt_for_selecting_tournament()
-				if choice == 3:
-					ReportsView.display_players(self.players_tournament(tournament_name, "r"))
+				if not table_tournament.get(User.name == tournament_name):
+					views.reports_view.ReportsView.tournament_not_found()
 				else:
-					ReportsView.display_players(self.players_tournament(tournament_name, "a"))
+					if choice == 3:
+						ReportsView.display_players(self.players_tournament(tournament_name, "r"))
+					elif choice == 4:
+						ReportsView.display_players(self.players_tournament(tournament_name, "a"))
+					elif choice == 6:
+						ReportsView.display_rounds(self.all_rounds(tournament_name), tournament_name)
+					else:
+						self.all_matches(TournamentsView.prompt_for_selecting_tournament())
 			elif choice == 5:
 				ReportsView.display_tournaments(self.all_tournaments())
-			elif choice == 6:
-				tournament_name = TournamentsView.prompt_for_selecting_tournament()
-				ReportsView.display_rounds(self.all_rounds(tournament_name), tournament_name)
-			elif choice == 7:
-				tournament_name = TournamentsView.prompt_for_selecting_tournament()
-				ReportsView.display_matches(self.all_matches(tournament_name), tournament_name)
 			elif choice == 8:
 				self.controller = controllers.home_controller.HomeController()
 				self.controller.start(HomeView)
@@ -49,7 +52,7 @@ class ReportsController(Controller):
 			players_data.append(player_data)
 		players_list_by_alph = sorted(players_data, key=lambda x: x[1])
 		players_list_by_ranking = sorted(players_data, key=lambda x: x[3])
-
+		print(players_list_by_ranking)
 		if sort == "r":
 			return players_list_by_ranking
 		else:
@@ -105,10 +108,9 @@ class ReportsController(Controller):
 	@staticmethod
 	def all_matches(tournament_name):
 		rounds_list = table_tournament.get(User.name == tournament_name).get("rounds_list")
-		matches = []
-		for tour in rounds_list:
-			matches.append(tour.get("match_list"))
-		return matches
+		for round in rounds_list:
+			for match in round["match_list"]:
+				Match.deserialize(match).__repr__()
 
 
 if __name__ == "__main__":

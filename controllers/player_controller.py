@@ -1,5 +1,6 @@
 import controllers.home_controller
-from controllers.main_controller import Controller, stop
+import views.home_view
+from controllers.main_controller import Controller, stop, table_players
 from models.player import Player
 from views.home_view import HomeView
 
@@ -21,9 +22,12 @@ class PlayersController(Controller):
 				new_player.save()
 			elif choice == 2:
 				result = self.view.prompt_for_update_ranking()
-				player = Player.deserialize(int(result[0]))
-				player.update_ranking(int(result[1]))
-				player.save()
+				if not table_players.get(doc_id=int(result[0])):
+					self.view.player_not_found()
+				else:
+					player = Player.deserialize(int(result[0]))
+					player.update_ranking(int(result[1]))
+					player.save()
 			elif choice == 3:
 				self.controller = controllers.home_controller.HomeController()
 				self.controller.start(HomeView)

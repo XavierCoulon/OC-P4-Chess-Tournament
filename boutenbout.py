@@ -1,9 +1,10 @@
-from controllers.main_controller import db, User, table_players, table_tournament
-from views.tournament_view import TournamentsView
+from controllers.main_controller import table_tournament, User, table_players
+from models.round import Round
 
 
 def main():
-	TournamentsView.display_players_tournament(2)
+	tournament = table_tournament.get(User.name == "qsdcqdsc")
+	print(tournament)
 
 
 if __name__ == "__main__":

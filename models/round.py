@@ -1,5 +1,6 @@
 from controllers.main_controller import table_tournament, table_players, User
 from models.tournament import Tournament
+from models.match import Match
 from datetime import datetime
 
 
@@ -11,6 +12,9 @@ class Round:
 		self.match_list = match_list
 		self.finished = finished
 
+	def __repr__(self):
+		print(f"Round {self.name} created on {self.start_date}. {len(self.match_list)} matches.")
+
 	def serialize(self):
 		return {
 			"name": self.name,
@@ -20,7 +24,7 @@ class Round:
 			"finished": self.finished
 		}
 
-	def first_pairing(self, tournament_name):
+	def create_round(self, tournament_name):
 		players_list = table_tournament.get(User.name == tournament_name).get("players_list")
 		ranking_list = []
 		matches = []
@@ -34,44 +38,30 @@ class Round:
 		if not self.match_list:
 			sorted_players_ranking = sorted(players_ranking, key=lambda element: element[1])
 			for first, second in zip(sorted_players_ranking, sorted_players_ranking[int(len(sorted_players_ranking) / 2):]):
-				match = [[first[0], 0], [second[0], 0]]
-				matches.append(match)
+				match = Match(first[0], 0, second[0], 0)
+				matches.append(match.serialize())
 			self.match_list = matches
 			self.name = 1
 		else:
+			#A REVOIR
 			players_ranking = sorted(players_ranking, key=lambda element: element[0])
-			last_round = self.match_list
-			refactor_last_round = []
-			for item in last_round:
-				refactor_last_round.append(item[0])
-				refactor_last_round.append(item[1])
-			refactor_last_round = sorted(refactor_last_round, key=lambda element: element[0][0])
-			last_round_ranking = [
-				[x[0], x[1], y[1]] if x[0] == y[0] else 0 for (x, y) in zip(refactor_last_round, players_ranking)]
-			last_round_ranking = sorted(last_round_ranking, key=lambda x: (x[1], -x[2], x[0]), reverse=True)
+			players_ranking_score = []
+			for player in players_ranking:
+				players_ranking_score.append(player + [players_list[player[0]]])
+			players_ranking_score = sorted(players_ranking_score, key=lambda element: (element[2], element[1]))
 			new_round = []
-			for x, y in zip(*[iter(last_round_ranking)] * 2):
-				new_round.append([[x[0], x[1]], [y[0], y[1]]])
+			for x, y in zip(*[iter(players_ranking_score)] * 2):
+				match = Match(x[0], 0, y[0], 0)
+				new_round.append(match.serialize())
 			self.match_list = new_round
 			self.name += 1
 		self.start_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 		self.end_date = None
 		self.finished = False
+		self.__repr__()
 		return self
 
-	#a revoir...
-	def result_match(self):
-		for match in self.match_list:
-			choice = input(f"Result match 'player {match[0][0]} vs player {match[1][0]}' (1/N/2): ")
-			if choice == "1":
-				match[0][1] += 1
-				match[1][1] += 0
-			elif choice == "N":
-				match[0][1] += 0.5
-				match[1][1] += 0.5
-			else:
-				match[0][1] += 0
-				match[1][1] += 1
+	def close(self):
 		self.finished = True
 		self.end_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 		return self

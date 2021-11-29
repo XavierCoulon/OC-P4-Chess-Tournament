@@ -61,6 +61,16 @@ class TournamentsView:
 		return tournament_name
 
 	@staticmethod
+	def tournament_not_found():
+		print("Tournament not found in db.")
+		input("")
+
+	@staticmethod
+	def prompt_for_resulting(player1_id, player2_id):
+		result = input(f"Result match Player {player1_id} vs player {player2_id}' (1/N/2): ")
+		return result
+
+	@staticmethod
 	def players_missing():
 		print("No players allocated on this tournament.")
 		input("")

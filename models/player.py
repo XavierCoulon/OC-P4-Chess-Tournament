@@ -14,6 +14,9 @@ class Player:
 		self.gender = gender
 		self.description = description
 
+	def __repr__(self):
+		print(self.first_name, self.last_name)
+
 	def auto_creation(self):
 		fake = Faker("fr_FR")
 		self.ranking = randint(1, 20)

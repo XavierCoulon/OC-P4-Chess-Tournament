@@ -46,12 +46,20 @@ class ReportsView:
 		input("")
 
 	@staticmethod
-	def display_matches(matches_data, tournament_name):
-		print("*******MATCHES' LIST *******")
-		print(f"Tournament: {tournament_name}")
-		counter = 1
-		for tour in matches_data:
-			for match in tour:
-				print(f"Round {counter}: Player {match[0][0]} vs {match[1][0]} (score {match[0][1]} - {match[1][1]})")
-			counter += 1
+	def tournament_not_found():
+		print("Tournament not found in db.")
 		input("")
+
+	# @staticmethod
+	# def display_matches(matches_data, tournament_name):
+	# 	print("*******MATCHES' LIST *******")
+	# 	print(f"Tournament: {tournament_name}")
+	# 	counter = 1
+	# 	for tour in matches_data:
+	# 		for match in tour:
+	# 			print(
+	# 				f"Round {counter}: Player {match.player1_id} vs {match.player2_id} "
+	# 				f"(score {match.player1_score} - {match.player2_score})"
+	# 			)
+	# 		counter += 1
+	# 	input("")
