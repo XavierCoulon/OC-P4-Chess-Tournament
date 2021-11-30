@@ -1,5 +1,6 @@
-import sys
+""" Main controller"""
 
+import sys
 from tinydb import TinyDB, Query
 
 
@@ -11,12 +12,13 @@ table_tournament = db.table("tournaments")
 
 
 class Controller:
-
+	""" Controller class"""
 	def __init__(self):
 		self.controller = None
 		self.view = None
 
 	def start(self, view):
+		""" To start and run a controller """
 		self.controller = True
 		self.view = view
 		self.run()
@@ -26,11 +28,10 @@ class Controller:
 
 
 def stop():
-	print("FIN.")
+	""" To stop the program"""
+	print("Program stopped.")
 	sys.exit()
 
 
 if __name__ == "__main__":
 	pass
-
-

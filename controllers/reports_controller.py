@@ -1,3 +1,5 @@
+""" Controller managing Reports """
+
 import controllers.home_controller
 import views.reports_view
 from controllers.main_controller import Controller, stop, User
@@ -9,10 +11,13 @@ from models.match import Match
 
 
 class ReportsController(Controller):
-
+	""" Classe for Reports' controller"""
 	def run(self):
+		""" Run controller """
 		while self.controller:
 			choice = self.view.display_menu()
+
+			# Cf. Reports view for matching
 			if choice == 1:
 				ReportsView.display_players(self.all_players("r"))
 			elif choice == 2:
@@ -29,7 +34,7 @@ class ReportsController(Controller):
 					elif choice == 6:
 						ReportsView.display_rounds(self.all_rounds(tournament_name), tournament_name)
 					else:
-						self.all_matches(TournamentsView.prompt_for_selecting_tournament())
+						self.all_matches(tournament_name)
 			elif choice == 5:
 				ReportsView.display_tournaments(self.all_tournaments())
 			elif choice == 8:
@@ -40,6 +45,15 @@ class ReportsController(Controller):
 
 	@staticmethod
 	def players_tournament(tournament_name, sort):
+		""" Players' tournament list, sorted by ranking or alphabetical order
+
+		Args:
+			tournament_name (str): name of the tournament
+			sort (str): "r" for ranking, any other key for alphabetical order
+
+		Returns:
+			players' list (list)
+		"""
 		players = table_tournament.get(User.name == tournament_name).get("players_list")
 		players_data = []
 		for player in players:
@@ -60,7 +74,16 @@ class ReportsController(Controller):
 
 	@staticmethod
 	def all_players(sort):
+		""" All players sorted by alphabetical order
+
+		Args:
+			sort (str): "r" for ranking, any other key for alphabetical order
+
+		Returns:
+			players' list (list)
+		"""
 		players_data = []
+		# get players from database
 		for player in table_players:
 			player_data = [
 				player.doc_id,
@@ -79,6 +102,12 @@ class ReportsController(Controller):
 
 	@staticmethod
 	def all_tournaments():
+		""" All tournaments sorted by alphabetical order
+
+		Returns:
+			tournaments' list (list)
+		"""
+
 		tournaments = []
 		for tournament in table_tournament:
 			tournament_data = [
@@ -93,6 +122,15 @@ class ReportsController(Controller):
 
 	@staticmethod
 	def all_rounds(tournament_name):
+		""" All rounds of a tournament
+
+		Args:
+			tournament_name (str): name of a tournament
+
+		Returns:
+			Rounds' list (list)
+		"""
+
 		rounds = table_tournament.get(User.name == tournament_name).get("rounds_list")
 		rounds_data = []
 		for tour in rounds:
@@ -107,10 +145,16 @@ class ReportsController(Controller):
 
 	@staticmethod
 	def all_matches(tournament_name):
+		""" All players sorted by alphabetical order (use of __str__ on Match to display)
+
+		Args:
+			tournament_name (str): name of a tournament
+
+		"""
 		rounds_list = table_tournament.get(User.name == tournament_name).get("rounds_list")
-		for round in rounds_list:
-			for match in round["match_list"]:
-				Match.deserialize(match).__repr__()
+		for tour in rounds_list:
+			for match in tour["match_list"]:
+				Match.deserialize(match).__str__()
 
 
 if __name__ == "__main__":

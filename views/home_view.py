@@ -1,3 +1,5 @@
+""" View of Home menu"""
+
 import os
 
 
@@ -7,6 +9,7 @@ class HomeView:
 
 	@staticmethod
 	def display_menu():
+		""" Display Home menu"""
 		print("******* HOME MENU *******")
 		print("1. PLAYERS")
 		print("2. TOURNAMENT")
