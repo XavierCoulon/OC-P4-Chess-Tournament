@@ -5,8 +5,6 @@ import os
 
 class PlayersView:
 	""" View for managing players"""
-	def __init__(self):
-		self.view = None
 
 	@staticmethod
 	def display_menu():

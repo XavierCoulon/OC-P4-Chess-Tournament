@@ -8,7 +8,7 @@ from controllers.main_controller import table_players, User
 
 class Player:
 	""" Player class """
-	def __init__(self, ranking=1, first_name=None, last_name=None, birth_date=None, gender=None, description=None):
+	def __init__(self, ranking=None, first_name=None, last_name=None, birth_date=None, gender=None, description=None):
 		self.ranking = ranking
 		self.first_name = first_name
 		self.last_name = last_name
@@ -21,14 +21,14 @@ class Player:
 		print(f"Player: {self.first_name} {self.last_name}  / ranking: {self.ranking}")
 
 	# @property
-	# def ranking(self):
-	# 	return self._ranking
+	# def first_name(self):
+	# 	return self._first_name
 	#
-	# @ranking.setter
-	# def ranking(self, value):
-	# 	while not value.isdigit():
-	# 		return print("error")
-	# 	self._ranking = value
+	# @first_name.setter
+	# def first_name(self, value):
+	# 	if len(value) == 0:
+	# 		raise Exception("Entrez une valeur non vide")
+	# 	self._first_name = str.capitalize(value)
 
 	def auto_creation(self):
 		""" Used to create automatically a player, using Faker module """
@@ -73,23 +73,23 @@ class Player:
 		self.ranking = ranking
 
 	@staticmethod
-	def deserialize(player_dict):
-		""" Deserialize a player from a dictionnary
+	def deserialize(player_id):
+		""" Deserialize a player from its id
 
 		Args:
-			player_dict: player
+			player_id: player id
 
 		Returns:
 			Player object
 		"""
-		player = table_players.get(doc_id=player_dict)
+		player = table_players.get(doc_id=player_id)
 		return Player(
-			ranking=player["ranking"],
-			first_name=player["first_name"],
-			last_name=player["last_name"],
-			birth_date=player["birth_date"],
-			gender=player["gender"],
-			description=player["description"]
+			ranking=player.get("ranking"),
+			first_name=player.get("first_name"),
+			last_name=player.get("last_name"),
+			birth_date=player.get("birth_date"),
+			gender=player.get("gender"),
+			description=player.get("description")
 		)
 
 

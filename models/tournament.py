@@ -85,13 +85,13 @@ class Tournament:
 		"""
 		tournament = table_tournament.get(User.name == tournament_name)
 		return Tournament(
-			name=tournament["name"],
-			location=tournament["location"],
-			dates=tournament["dates"],
-			players_list=tournament["players_list"],
-			rounds_list=tournament["rounds_list"],
-			game_type=tournament["game_type"],
-			description=tournament["description"]
+			name=tournament.get("name"),
+			location=tournament.get("location"),
+			dates=tournament.get("dates"),
+			players_list=tournament.get("players_list"),
+			rounds_list=tournament.get("rounds_list"),
+			game_type=tournament.get("game_type"),
+			description=tournament.get("description")
 		)
 
 

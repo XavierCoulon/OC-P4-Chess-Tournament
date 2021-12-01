@@ -16,19 +16,21 @@ class HomeController(Controller):
 			choice = self.view.display_menu()
 
 			# Access to Players' menu
-			if choice == 1:
+			if choice == "1":
 				self.controller = PlayersController()
 				self.controller.start(PlayersView)
 			# Access to Tournaments' menu
-			elif choice == 2:
+			elif choice == "2":
 				self.controller = TournamentsController()
 				self.controller.start(TournamentsView)
 			# Access to Reports' menu
-			elif choice == 3:
+			elif choice == "3":
 				self.controller = ReportsController()
 				self.controller.start(ReportsView)
-			else:
+			elif choice in ["q", "4"]:
 				stop()
+			else:
+				pass
 
 
 if __name__ == "__main__":

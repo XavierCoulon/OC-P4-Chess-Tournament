@@ -23,7 +23,7 @@ class Round:
 		self.match_list = match_list
 		self.finished = finished
 
-	def __repr__(self):
+	def __str__(self):
 		""" Used if Player object printed"""
 		print(
 			f"Round {self.name} created on "
@@ -50,6 +50,7 @@ class Round:
 			tournament_name (str): name of the tournament
 
 		Returns:
+			Round object
 
 		"""
 
@@ -74,6 +75,7 @@ class Round:
 				sorted_players_ranking[int(len(sorted_players_ranking) / 2):]
 			):
 				match = Match(first[0], 0, second[0], 0)
+				match.__str__()
 				matches.append(match.serialize())
 			self.match_list = matches
 			self.name = 1
@@ -91,15 +93,15 @@ class Round:
 			new_round = []
 			for x, y in zip(*[iter(players_ranking_score)] * 2):
 				match = Match(x[0], 0, y[0], 0)
+				match.__str__()
 				new_round.append(match.serialize())
 			self.match_list = new_round
 			self.name += 1
 		self.start_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 		self.end_date = None
 		self.finished = False
-		self.__repr__()
-
-	# return self
+		self.__str__()
+		return self
 
 	def close(self):
 		""" Close a round, automatic after resulting all matches"""
@@ -125,11 +127,11 @@ class Round:
 			# get last round
 			new_round = tournament.rounds_list[-1]
 			return Round(
-				name=new_round["name"],
-				start_date=new_round["start_date"],
-				end_date=new_round["end_date"],
-				match_list=new_round["match_list"],
-				finished=new_round["finished"])
+				name=new_round.get("name"),
+				start_date=new_round.get("start_date"),
+				end_date=new_round.get("end_date"),
+				match_list=new_round.get("match_list"),
+				finished=new_round.get("finished"))
 
 
 if __name__ == "__main__":

@@ -5,8 +5,6 @@ import os
 
 class ReportsView:
 	""" Class for Reports' view"""
-	def __init__(self):
-		self.view = None
 
 	@staticmethod
 	def display_menu():
@@ -21,7 +19,7 @@ class ReportsView:
 		print("7. All matches of a tournament.")
 		print("8. Back to Home Menu.")
 		print("9. QUIT.")
-		choice = int(input("Votre choix: "))
+		choice = input("Your choice: ")
 		os.system('cls' if os.name == "nt" else "clear")
 		return choice
 

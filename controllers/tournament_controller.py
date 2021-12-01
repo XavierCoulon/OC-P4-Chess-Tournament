@@ -86,8 +86,11 @@ class TournamentsController(Controller):
 				new_tournament.auto_creation()
 				new_tournament.__str__()
 				new_tournament.save()
-			else:
+
+			elif choice in ["q", "6"]:
 				stop()
+			else:
+				pass
 
 
 if __name__ == "__main__":

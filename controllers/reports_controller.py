@@ -18,30 +18,32 @@ class ReportsController(Controller):
 			choice = self.view.display_menu()
 
 			# Cf. Reports view for matching
-			if choice == 1:
+			if choice == "1":
 				ReportsView.display_players(self.all_players("r"))
-			elif choice == 2:
+			elif choice == "2":
 				ReportsView.display_players(self.all_players("a"))
-			elif choice in [3, 4, 6, 7]:
+			elif choice in ["3", "4", "6", "7"]:
 				tournament_name = TournamentsView.prompt_for_selecting_tournament()
 				if not table_tournament.get(User.name == tournament_name):
 					views.reports_view.ReportsView.tournament_not_found()
 				else:
-					if choice == 3:
+					if choice == "3":
 						ReportsView.display_players(self.players_tournament(tournament_name, "r"))
-					elif choice == 4:
+					elif choice == "4":
 						ReportsView.display_players(self.players_tournament(tournament_name, "a"))
-					elif choice == 6:
+					elif choice == "6":
 						ReportsView.display_rounds(self.all_rounds(tournament_name), tournament_name)
 					else:
 						self.all_matches(tournament_name)
-			elif choice == 5:
+			elif choice == "5":
 				ReportsView.display_tournaments(self.all_tournaments())
-			elif choice == 8:
+			elif choice == "8":
 				self.controller = controllers.home_controller.HomeController()
 				self.controller.start(HomeView)
-			else:
+			elif choice == "q":
 				stop()
+			else:
+				pass
 
 	@staticmethod
 	def players_tournament(tournament_name, sort):
@@ -66,7 +68,6 @@ class ReportsController(Controller):
 			players_data.append(player_data)
 		players_list_by_alph = sorted(players_data, key=lambda x: x[1])
 		players_list_by_ranking = sorted(players_data, key=lambda x: x[3])
-		print(players_list_by_ranking)
 		if sort == "r":
 			return players_list_by_ranking
 		else:

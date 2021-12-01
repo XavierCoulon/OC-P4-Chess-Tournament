@@ -5,8 +5,6 @@ import os
 
 class TournamentsView:
 	""" View for managing tournament"""
-	def __init__(self):
-		self.view = None
 
 	@staticmethod
 	def display_menu():
@@ -18,7 +16,7 @@ class TournamentsView:
 		print("4. Result last round.")
 		print("5. Back to Home menu.")
 		print("6. QUIT.")
-		choice = input("Votre choix: ")
+		choice = input("Your choice: ")
 		os.system('cls' if os.name == "nt" else "clear")
 		return choice
 

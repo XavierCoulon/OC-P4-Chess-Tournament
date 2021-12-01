@@ -4,8 +4,7 @@ import os
 
 
 class HomeView:
-	def __init__(self):
-		pass
+	""" View for home menu"""
 
 	@staticmethod
 	def display_menu():
@@ -15,6 +14,6 @@ class HomeView:
 		print("2. TOURNAMENT")
 		print("3. REPORTS")
 		print("4. QUIT")
-		choice = int(input("Votre choix: "))
+		choice = input("Your choice: ")
 		os.system('cls' if os.name == "nt" else "clear")
 		return choice

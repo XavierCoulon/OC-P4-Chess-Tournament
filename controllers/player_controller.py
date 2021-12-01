@@ -52,8 +52,10 @@ class PlayersController(Controller):
 					new_player.auto_creation()
 					new_player.__str__()
 					new_player.save()
-			else:
+			elif choice == "q":
 				stop()
+			else:
+				pass
 
 
 if __name__ == "__main__":

@@ -59,8 +59,8 @@ class Match:
 			Match object
 		"""
 		return Match(
-			player1_id=match["player1_id"],
-			player1_score=match["player1_score"],
-			player2_id=match["player2_id"],
-			player2_score=match["player2_score"]
+			player1_id=match.get("player1_id"),
+			player1_score=match.get("player1_score"),
+			player2_id=match.get("player2_id"),
+			player2_score=match.get("player2_score")
 		)
