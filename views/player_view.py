@@ -32,26 +32,64 @@ class PlayersView:
 		return [player_id, new_ranking]
 
 	@staticmethod
-	def prompt_for_manual_creation_player():
-		""" UI to create a player
+	def prompt_for_first_name():
+		""" Fill the first name
 
-		Returns: list of values filled
+		Returns (str): first name
 
 		"""
-
 		first_name = input("First name: ")
+		return first_name
+
+	@staticmethod
+	def prompt_for_last_name():
+		""" Fill the last name
+
+		Returns (str): last name
+
+		"""
 		last_name = input("Last name: ")
-		ranking = int(input("Ranking: "))
-		birth_date = input("Birth date: ")
+		return last_name
+
+	@staticmethod
+	def prompt_for_ranking():
+		""" Fill the ranking
+
+		Returns (str): ranking
+
+		"""
+		ranking = input("Ranking: ")
+		return ranking
+
+	@staticmethod
+	def prompt_for_birth_date():
+		""" Fill the birth date
+
+		Returns (str): birth date
+
+		"""
+		birth_date = input("Birth date (dd/mm/yy): ")
+		return birth_date
+
+	@staticmethod
+	def prompt_for_gender():
+		""" Fill the gender
+
+		Returns (str): gender
+
+		"""
 		gender = input("Gender (F or M): ")
+		return gender
+
+	@staticmethod
+	def prompt_for_description():
+		""" Fill the description
+
+		Returns (str): description
+
+		"""
 		description = input("Description: ")
-		return [
-			first_name,
-			last_name,
-			ranking,
-			birth_date,
-			gender,
-			description]
+		return description
 
 	@staticmethod
 	def player_not_found():
@@ -59,8 +97,7 @@ class PlayersView:
 		print("Player not found in db.")
 		input("")
 
-	# Not used so far
-	# @staticmethod
-	# def display_format_invalid():
-	# 	value = input("Format invalid, please retry: ")
-	# 	return value
+	@staticmethod
+	def invalid_format():
+		""" Message if invalid format"""
+		return input(" -Warning: format not valid, please retry: ")

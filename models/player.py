@@ -21,14 +21,14 @@ class Player:
 		print(f"Player: {self.first_name} {self.last_name}  / ranking: {self.ranking}")
 
 	# @property
-	# def first_name(self):
-	# 	return self._first_name
+	# def gender(self):
+	# 	return self._gender
 	#
-	# @first_name.setter
-	# def first_name(self, value):
-	# 	if len(value) == 0:
-	# 		raise Exception("Entrez une valeur non vide")
-	# 	self._first_name = str.capitalize(value)
+	# @gender.setter
+	# def gender(self, value):
+	# 	while value not in ["F", "M"]:
+	# 		value = input("Gender: format non valid, please retry (F or M): ")
+	# 	self._gender = value
 
 	def auto_creation(self):
 		""" Used to create automatically a player, using Faker module """
@@ -36,7 +36,7 @@ class Player:
 		self.ranking = randint(1, 300)
 		self.first_name = fake.first_name()
 		self.last_name = fake.last_name()
-		self.birth_date = datetime.strftime(fake.date_of_birth(), "%m/%d/%Y")
+		self.birth_date = datetime.strftime(fake.date_of_birth(), "%d/%m/%y")
 		self.gender = choice(["F", "M"])
 		self.description = fake.text(max_nb_chars=20)
 

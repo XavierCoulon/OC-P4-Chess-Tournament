@@ -1,6 +1,8 @@
 """ Controller managing Players """
 
 import controllers.home_controller
+import re
+from datetime import datetime
 from controllers.main_controller import Controller, stop, table_players
 from models.player import Player
 from views.home_view import HomeView
@@ -15,14 +17,31 @@ class PlayersController(Controller):
 
 			# Manual creation of a player
 			if choice == "1":
-				player = self.view.prompt_for_manual_creation_player()
+				first_name = self.view.prompt_for_first_name()
+				last_name = self.view.prompt_for_last_name()
+				ranking = self.view.prompt_for_ranking()
+				while True:
+					try:
+						ranking = int(ranking)
+					except ValueError:
+						ranking = self.view.invalid_format()
+					else:
+						break
+				birth_date = self.view.prompt_for_birth_date()
+				while not re.search('^\\d\\d/\\d\\d/\\d\\d$', birth_date):
+					birth_date = self.view.invalid_format()
+				gender = self.view.prompt_for_gender()
+				while gender not in ["F", "M"]:
+					gender = self.view.invalid_format()
+				description = self.view.prompt_for_description()
+
 				new_player = Player(
-					first_name=player[0],
-					last_name=player[1],
-					ranking=int(player[2]),
-					birth_date=player[3],
-					gender=player[4],
-					description=player[5])
+					first_name=first_name,
+					last_name=last_name,
+					gender=gender,
+					ranking=ranking,
+					birth_date=birth_date,
+					description=description)
 				new_player.__str__()
 				new_player.save()
 
