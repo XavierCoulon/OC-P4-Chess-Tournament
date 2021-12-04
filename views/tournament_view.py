@@ -39,6 +39,57 @@ class TournamentsView:
 			description]
 
 	@staticmethod
+	def prompt_for_name():
+		""" Fill the name
+
+		Returns (str): name
+
+		"""
+		name = input("Name: ")
+		return name
+
+	@staticmethod
+	def prompt_for_date():
+		""" Fill the date
+
+		Returns (str): date
+
+		"""
+		date = input("Date (dd/mm/yy): ")
+		return date
+
+	@staticmethod
+	def prompt_for_location():
+		""" Fill the location
+
+		Returns (str): location
+
+		"""
+		location = input("Location: ")
+		return location
+
+	@staticmethod
+	def prompt_for_game_type():
+		""" Fill the game type
+
+		Returns (str): game type
+
+		"""
+		game_type = input("Game type (Rapid, Bullet or Blitz) : ")
+		return game_type
+
+	@staticmethod
+	def prompt_for_description():
+		""" Fill the description
+
+		Returns (str): description
+
+		"""
+		description = input("Description: ")
+		return description
+
+
+	@staticmethod
 	def prompt_for_allocating_players():
 		""" UI to allocate players to a a tournament
 
@@ -72,17 +123,19 @@ class TournamentsView:
 		input("")
 
 	@staticmethod
-	def prompt_for_resulting(player1_id, player2_id):
+	def prompt_for_resulting(player1_id, player2_id, player1_name, player2_name):
 		""" UI for resulting matches of last round
 
 		Args:
 			player1_id (str): ID player 1
 			player2_id (str): ID player 2
+			player1_name (str): player 1 last name
+			player2_name (str): player 2 last name
 
 		Returns:
 			result (str): result of input
 		"""
-		result = input(f"Result match Player {player1_id} vs player {player2_id}' (1/N/2): ")
+		result = input(f"Result match Player {player1_id} - {player1_name} vs Player {player2_id} - {player2_name}' (1/N/2): ")
 		return result
 
 	@staticmethod
@@ -96,3 +149,8 @@ class TournamentsView:
 		""" Message if limit of rounds by tournament has been reached (cf. constant MAX_ROUNDS_NUMBER in Maincontroller)"""
 		print("Limit of rounds by tournament already reached.")
 		input("")
+
+	@staticmethod
+	def invalid_format():
+		""" Message if invalid format"""
+		return input(" -Warning: format not valid, please retry: ")

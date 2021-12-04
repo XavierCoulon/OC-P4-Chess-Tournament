@@ -667,6 +667,96 @@
             ],
             "game_type": "",
             "description": ""
+        },
+        "8": {
+            "name": "sdfsdf",
+            "location": "sfsdf",
+            "dates": "12/12/24",
+            "players_list": {},
+            "rounds_list": [],
+            "game_type": "rapid",
+            "description": "sdsdv"
+        },
+        "9": {
+            "name": "POUR",
+            "location": "dcscd",
+            "dates": "12/12/12",
+            "players_list": {
+                "1": 1.5,
+                "2": 1.0,
+                "3": 1.0,
+                "4": 1.5,
+                "5": 1.5,
+                "6": 2.5
+            },
+            "rounds_list": [
+                {
+                    "name": 1,
+                    "start_date": "04/12/2021 15:30:26",
+                    "end_date": "04/12/2021 15:36:38",
+                    "match_list": [
+                        {
+                            "player1_id": 1,
+                            "player1_score": 0.5,
+                            "player2_id": 2,
+                            "player2_score": 0.5,
+                            "player1_name": "Bouvet",
+                            "player2_name": "Ribeiro"
+                        },
+                        {
+                            "player1_id": 3,
+                            "player1_score": 0.5,
+                            "player2_id": 5,
+                            "player2_score": 0.5,
+                            "player1_name": "Le Goff",
+                            "player2_name": "Ollivier"
+                        },
+                        {
+                            "player1_id": 6,
+                            "player1_score": 1,
+                            "player2_id": 4,
+                            "player2_score": 0,
+                            "player1_name": "Weber",
+                            "player2_name": "Maillard"
+                        }
+                    ],
+                    "finished": true
+                },
+                {
+                    "name": 2,
+                    "start_date": "04/12/2021 15:37:12",
+                    "end_date": "04/12/2021 15:38:07",
+                    "match_list": [
+                        {
+                            "player1_id": 3,
+                            "player1_score": 0.5,
+                            "player2_id": 2,
+                            "player2_score": 0.5,
+                            "player1_name": "Le Goff",
+                            "player2_name": "Ribeiro"
+                        },
+                        {
+                            "player1_id": 4,
+                            "player1_score": 1,
+                            "player2_id": 1,
+                            "player2_score": 0,
+                            "player1_name": "Maillard",
+                            "player2_name": "Bouvet"
+                        },
+                        {
+                            "player1_id": 6,
+                            "player1_score": 1,
+                            "player2_id": 5,
+                            "player2_score": 0,
+                            "player1_name": "Weber",
+                            "player2_name": "Ollivier"
+                        }
+                    ],
+                    "finished": true
+                }
+            ],
+            "game_type": "Rapid",
+            "description": "svsfv"
         }
     }
 }

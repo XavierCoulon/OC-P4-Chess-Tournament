@@ -1,5 +1,6 @@
 """ Controller managing Tournaments (including rounds and matches) """
 
+import re
 import controllers.home_controller
 from controllers.main_controller import Controller, stop, MAX_ROUNDS_NUMBER, table_tournament, User
 from models.tournament import Tournament
@@ -18,13 +19,23 @@ class TournamentsController(Controller):
 
 			# Manual creation of a tournament
 			if choice == "1":
-				tournament = self.view.prompt_for_manual_creation_tournament()
+				name = self.view.prompt_for_name()
+				location = self.view.prompt_for_location()
+				date = self.view.prompt_for_date()
+				while not re.search('^\\d\\d/\\d\\d/\\d\\d$', date):
+					date = self.view.invalid_format()
+				game_type = self.view.prompt_for_game_type()
+				while game_type.upper() not in ["RAPID", "BULLET", "BLITZ"]:
+					game_type = self.view.invalid_format()
+				description = self.view.prompt_for_description()
+
 				new_tournament = Tournament(
-					name=tournament[0],
-					location=tournament[1],
-					dates=tournament[2],
-					game_type=tournament[3],
-					description=tournament[4])
+					name=name,
+					location=location,
+					dates=date,
+					game_type=game_type,
+					description=description
+					)
 				new_tournament.__str__()
 				new_tournament.save()
 
@@ -67,7 +78,12 @@ class TournamentsController(Controller):
 				new_match_list = []
 				for match in tour.match_list:
 					match_instance = Match.deserialize(match)
-					result = TournamentsView.prompt_for_resulting(match_instance.player1_id, match_instance.player2_id)
+					result = TournamentsView.prompt_for_resulting(
+						match_instance.player1_id,
+						match_instance.player2_id,
+						match_instance.player1_name,
+						match_instance.player2_name
+					)
 					match_instance.result(result, tournament)
 					new_match_list.append(match_instance.serialize())
 				tour.match_list = new_match_list

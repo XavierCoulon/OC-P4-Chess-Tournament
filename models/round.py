@@ -74,7 +74,7 @@ class Round:
 				sorted_players_ranking,
 				sorted_players_ranking[int(len(sorted_players_ranking) / 2):]
 			):
-				match = Match(first[0], 0, second[0], 0)
+				match = Match(player1_id=int(first[0]), player1_score=0, player2_id=int(second[0]), player2_score=0)
 				match.__str__()
 				matches.append(match.serialize())
 			self.match_list = matches
@@ -92,7 +92,7 @@ class Round:
 				sorted(players_ranking_score, key=lambda element: (element[2], element[1]))
 			new_round = []
 			for x, y in zip(*[iter(players_ranking_score)] * 2):
-				match = Match(x[0], 0, y[0], 0)
+				match = Match(player1_id=int(x[0]), player1_score=0, player2_id=int(y[0]), player2_score=0)
 				match.__str__()
 				new_round.append(match.serialize())
 			self.match_list = new_round
