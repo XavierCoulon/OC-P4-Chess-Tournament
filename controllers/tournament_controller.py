@@ -2,7 +2,7 @@
 
 import re
 import controllers.home_controller
-from controllers.main_controller import Controller, stop, MAX_ROUNDS_NUMBER, table_tournament, User
+from controllers.main_controller import Controller, stop, MAX_ROUNDS_NUMBER, table_tournament, User, table_players
 from models.tournament import Tournament
 from models.round import Round
 from models.match import Match
@@ -45,9 +45,23 @@ class TournamentsController(Controller):
 				# Check if tournament exists in database
 				if not table_tournament.get(User.name == choice[0]):
 					self.view.tournament_not_found()
+					return
 				else:
+					players = choice[1]
+					if len(players) % 2 != 0:
+						self.view.uneven_players()
+						break
+					for player in players:
+						try:
+							player = int(player)
+						except ValueError:
+							self.view.player_not_found(player)
+							return
+						if not table_players.get(doc_id=int(player)):
+							self.view.player_not_found(player)
+							return
 					tournament = Tournament.deserialize(choice[0])
-					tournament.add_players(choice[1])
+					tournament.add_players(players)
 					self.view.allocated_players()
 					tournament.save()
 
@@ -88,6 +102,7 @@ class TournamentsController(Controller):
 					new_match_list.append(match_instance.serialize())
 				tour.match_list = new_match_list
 				tour.close()
+				tour.__str__()
 				tournament.rounds_list[-1] = tour.serialize()
 				tournament.save()
 

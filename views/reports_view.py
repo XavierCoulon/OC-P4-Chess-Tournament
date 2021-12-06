@@ -14,11 +14,12 @@ class ReportsView:
 		print("2. All players (sorted by name).")
 		print("3. All players of a tournament (sorted by ranking).")
 		print("4. All players of a tournament (sorted by name).")
-		print("5. All tournaments.")
-		print("6. All rounds of a tournament.")
-		print("7. All matches of a tournament.")
-		print("8. Back to Home Menu.")
-		print("9. QUIT.")
+		print("5. All players of a tournament (sorted by score).")
+		print("6. All tournaments.")
+		print("7. All rounds of a tournament.")
+		print("8. All matches of a tournament.")
+		print("9. Back to Home Menu.")
+		print("10. QUIT.")
 		choice = input("Your choice: ")
 		os.system('cls' if os.name == "nt" else "clear")
 		return choice
@@ -33,7 +34,21 @@ class ReportsView:
 		"""
 		print("*******PLAYER's LIST *******")
 		for player in players_data:
-			print(f"ID: {player[0]} | Nom: {player[1]} | Prénom: {player[2]} | Ranking: {player[3]} |")
+			print(f"ID: {player[0]} | Nom: {player[1]} | Prénom: {player[2]} | Ranking: {player[3]} ")
+		input("")
+
+	@staticmethod
+	def display_players_score(players_data):
+		""" Display all players with score
+
+		Args:
+			players_data (list): players' datas
+
+		"""
+		print("*******PLAYER's LIST *******")
+		for player in players_data:
+			print(
+				f"ID: {player[0]} | Nom: {player[1]} | Prénom: {player[2]} | Ranking: {player[3]} | Score: {player[4]}")
 		input("")
 
 	@staticmethod

@@ -123,6 +123,18 @@ class TournamentsView:
 		input("")
 
 	@staticmethod
+	def player_not_found(player):
+		""" Message if player not found in database"""
+		print(f"Player ID {player} not found in db.")
+		input("")
+
+	@staticmethod
+	def uneven_players():
+		""" Message if number of players is uneven """
+		print("Numbers of players uneven.")
+		input("")
+
+	@staticmethod
 	def prompt_for_resulting(player1_id, player2_id, player1_name, player2_name):
 		""" UI for resulting matches of last round
 

@@ -27,7 +27,7 @@ class Round:
 		""" Used if Player object printed"""
 		print(
 			f"Round {self.name} created on "
-			f"{self.start_date}. {len(self.match_list)} matches.")
+			f"{self.start_date}, finished on {self.end_date}, {len(self.match_list)} matches.")
 
 	def serialize(self):
 		""" Serialize a Player object
@@ -81,22 +81,66 @@ class Round:
 			self.name = 1
 		# Condition: if a round already exists
 		else:
-			# To be reviewed
-			players_ranking = \
-				sorted(players_ranking, key=lambda element: element[0])
+			matchs_already_played = []
+			rounds_list = table_tournament.get(User.name == tournament_name).get("rounds_list")
+			for tour in rounds_list:
+				for match in tour["match_list"]:
+					matchs_already_played.append([match.get("player1_id"), match.get("player2_id")])
+
+			players_ranking = sorted(players_ranking, key=lambda element: element[1])
 			players_ranking_score = []
 			for player in players_ranking:
 				players_ranking_score.append(
 					player + [players_list[player[0]]])
-			players_ranking_score = \
-				sorted(players_ranking_score, key=lambda element: (element[2], element[1]))
+			players_ranking_score = sorted(players_ranking_score, key=lambda element: (-element[2], element[1]))
+
+			players_list = []
+			for player in players_ranking_score:
+				players_list.append(int(player[0]))
+			match_list = []
+			while len(players_list) != 0:
+				i = 0
+				j = 1
+				match = [players_list[i], players_list[j]]
+				match_reverse = match[::-1]
+				while (match in matchs_already_played or match_reverse in matchs_already_played) and j < len(
+					matchs_already_played):
+					j += 1
+					match = [players_list[i], players_list[j]]
+					match_reverse = match[::-1]
+				if j == len(matchs_already_played):
+					match_list.append(players_list[0])
+					match_list.append(players_list[1])
+					players_list.remove(players_list[0])
+					players_list.remove(players_list[1])
+				else:
+					match_list.append(match)
+					players_list.remove(match[0])
+					players_list.remove(match[1])
+
 			new_round = []
-			for x, y in zip(*[iter(players_ranking_score)] * 2):
-				match = Match(player1_id=int(x[0]), player1_score=0, player2_id=int(y[0]), player2_score=0)
+			for match in match_list:
+				match = Match(player1_id=int(match[0]), player1_score=0, player2_id=int(match[1]), player2_score=0)
 				match.__str__()
 				new_round.append(match.serialize())
 			self.match_list = new_round
 			self.name += 1
+
+		# First version
+			# players_ranking = sorted(players_ranking, key=lambda element: element[1])
+			# players_ranking_score = []
+			# for player in players_ranking:
+			# 	players_ranking_score.append(
+			# 		player + [players_list[player[0]]])
+			# players_ranking_score = sorted(players_ranking_score, key=lambda element: (-element[2], element[1]))
+			# new_round = []
+			# for x, y in zip(*[iter(players_ranking_score)] * 2):
+			# 	match = Match(player1_id=int(x[0]), player1_score=0, player2_id=int(y[0]), player2_score=0)
+			# 	match.__str__()
+			# 	new_round.append(match.serialize())
+			# self.match_list = new_round
+			# self.name += 1
+
 		self.start_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 		self.end_date = None
 		self.finished = False

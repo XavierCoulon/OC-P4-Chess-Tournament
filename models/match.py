@@ -5,7 +5,7 @@ from controllers.main_controller import table_players
 
 class Match:
 	"""Match class"""
-	def __init__(self, player1_id=None, player1_score=None, player2_id=None, player2_score=None, player1_name=None, player2_name=None):
+	def __init__(self, player1_id=None, player1_score=None, player2_id=None, player2_score=None):
 		self.player1_id = player1_id
 		self.player2_id = player2_id
 		self.player1_score = player1_score
@@ -15,7 +15,10 @@ class Match:
 
 	def __str__(self):
 		""" Used to print a Round object """
-		print(f"Player {self.player1_id} - {self.player1_name} vs Player {self.player2_id} - {self.player2_name} (score: {self.player1_score} - {self.player2_score})")
+		print(
+			f"Player {self.player1_id} - {self.player1_name} vs Player {self.player2_id} -"
+			f" {self.player2_name} (score: {self.player1_score} - {self.player2_score})"
+		)
 
 	def serialize(self):
 		""" Serialize a Player object
@@ -69,8 +72,6 @@ class Match:
 			player1_score=match.get("player1_score"),
 			player2_id=match.get("player2_id"),
 			player2_score=match.get("player2_score"),
-			player1_name=match.get("player1_name"),
-			player2_name=match.get("player2_name")
 		)
 
 
