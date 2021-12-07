@@ -12,7 +12,7 @@ provide an app to manage a chess tournament:
 
 ```bash
 git clone https://github.com/XavierCoulon/OC-P4-Chess-Tournament.git
-cd P4_Chess_Tournament
+cd OC-P4-Chess-Tournament
 python3.9 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
