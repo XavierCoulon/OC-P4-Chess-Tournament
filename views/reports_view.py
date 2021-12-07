@@ -78,7 +78,7 @@ class ReportsView:
 		print("*******ROUND's LIST *******")
 		print(f"Tournament: {tournament_name}")
 		for element in rounds_data:
-			print(f"Round {element[0]} | Start date: {element[1]} | End date: {element[2]} | Finished: {element[3]}")
+			print(f"Round {element[0]} | Start date: {element[1]} | End date: {element[2]}")
 		input("")
 
 	@staticmethod

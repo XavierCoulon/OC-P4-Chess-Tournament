@@ -15,13 +15,11 @@ class Round:
 		start_date=None,
 		end_date=None,
 		match_list=None,
-		finished=False
 	):
 		self.name = name
 		self.start_date = start_date
 		self.end_date = end_date
 		self.match_list = match_list
-		self.finished = finished
 
 	def __str__(self):
 		""" Used if Player object printed"""
@@ -39,8 +37,7 @@ class Round:
 			"name": self.name,
 			"start_date": self.start_date,
 			"end_date": self.end_date,
-			"match_list": self.match_list,
-			"finished": self.finished
+			"match_list": self.match_list
 		}
 
 	def create_round(self, tournament_name):
@@ -78,7 +75,6 @@ class Round:
 				matches.append(match.serialize())
 			self.match_list = matches
 			self.name = 1
-		
 		# Condition: if a round already exists
 		else:
 			# Retrieve matches already played in the tournament
@@ -108,16 +104,15 @@ class Round:
 				j = 1
 				match = [players_ids[i], players_ids[j]]
 				match_reverse = match[::-1]
-				while (match in matchs_already_played or match_reverse in matchs_already_played) and j < len(
-					matchs_already_played):
+				while (match in matchs_already_played or match_reverse in matchs_already_played) and j < (len(players_ids) - 1):
 					j += 1
 					match = [players_ids[i], players_ids[j]]
 					match_reverse = match[::-1]
-				if j == len(matchs_already_played):
+				if j == len(players_ids):
 					match_list.append(players_ids[0])
 					match_list.append(players_ids[1])
-					players_ids.remove(players_ids[0])
-					players_ids.remove(players_ids[1])
+					players_ids.remove(match[0])
+					players_ids.remove(match[1])
 				else:
 					match_list.append(match)
 					players_ids.remove(match[0])
@@ -133,13 +128,11 @@ class Round:
 
 		self.start_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 		self.end_date = None
-		self.finished = False
 		self.__str__()
 		return self
 
 	def close(self):
 		""" Close a round, automatic after resulting all matches"""
-		self.finished = True
 		self.end_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
 	@staticmethod
@@ -162,8 +155,7 @@ class Round:
 				name=new_round.get("name"),
 				start_date=new_round.get("start_date"),
 				end_date=new_round.get("end_date"),
-				match_list=new_round.get("match_list"),
-				finished=new_round.get("finished"))
+				match_list=new_round.get("match_list"))
 
 
 if __name__ == "__main__":

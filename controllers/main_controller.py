@@ -1,12 +1,16 @@
 """ Main controller"""
 
 import sys
+import os
 from tinydb import TinyDB, Query
 
 # Limit of rounds by default
 MAX_ROUNDS_NUMBER = 4
 # Information regarding database
-db = TinyDB("data/db.json", indent=4)
+data_folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
+if not os.path.exists(data_folder):
+	os.mkdir(data_folder)
+db = TinyDB(os.path.join(data_folder, "db.json"), indent=4)
 User = Query()
 table_players = db.table("players")
 table_tournament = db.table("tournaments")

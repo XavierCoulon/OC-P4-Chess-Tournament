@@ -89,6 +89,7 @@ class PlayersView:
 
 		"""
 		description = input("Description: ")
+		print("")
 		return description
 
 	@staticmethod

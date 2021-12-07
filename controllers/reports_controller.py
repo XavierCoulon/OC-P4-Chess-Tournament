@@ -8,7 +8,6 @@ from views.home_view import HomeView
 from views.tournament_view import TournamentsView
 from views.reports_view import ReportsView
 from models.match import Match
-from models.tournament import Tournament
 
 
 class ReportsController(Controller):

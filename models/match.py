@@ -81,6 +81,4 @@ class Match:
 
 
 if __name__ == "__main__":
-	match = Match(player1_id="1", player2_id="2")
-	print(match.player1_name)
-	print(match.player2_name)
+	pass

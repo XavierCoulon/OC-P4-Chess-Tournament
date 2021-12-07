@@ -2,7 +2,6 @@
 
 import controllers.home_controller
 import re
-from datetime import datetime
 from controllers.main_controller import Controller, stop, table_players
 from models.player import Player
 from views.home_view import HomeView

@@ -34,8 +34,7 @@ class TournamentsController(Controller):
 					location=location,
 					dates=date,
 					game_type=game_type,
-					description=description
-					)
+					description=description)
 				new_tournament.__str__()
 				new_tournament.save()
 
@@ -87,24 +86,35 @@ class TournamentsController(Controller):
 			# Result matches of the last Round
 			elif choice == "4":
 				prompt = TournamentsView.prompt_for_selecting_tournament()
-				tournament = Tournament.deserialize(prompt)
-				tour = Round.deserialize(prompt)
-				new_match_list = []
-				for match in tour.match_list:
-					match_instance = Match.deserialize(match)
-					result = TournamentsView.prompt_for_resulting(
-						match_instance.player1_id,
-						match_instance.player2_id,
-						match_instance.player1_name,
-						match_instance.player2_name
-					)
-					tournament.update_global_score(match_instance.result(result, tournament))
-					new_match_list.append(match_instance.serialize())
-				tour.match_list = new_match_list
-				tour.close()
-				tour.__str__()
-				tournament.rounds_list[-1] = tour.serialize()
-				tournament.save()
+				# Check if tournament exists in database
+				if not table_tournament.get(User.name == prompt):
+					self.view.tournament_not_found()
+				else:
+					tournament = Tournament.deserialize(prompt)
+					tour = Round.deserialize(prompt)
+					# If last round has already been resulted, warning and quit
+					if tour.end_date:
+						self.view.tournament_already_resulted()
+						break
+
+					new_match_list = []
+					for match in tour.match_list:
+						match_instance = Match.deserialize(match)
+						result = TournamentsView.prompt_for_resulting(
+							match_instance.player1_id,
+							match_instance.player2_id,
+							match_instance.player1_name,
+							match_instance.player2_name
+						)
+						while result not in ["1", "N", "2"]:
+							result = self.view.invalid_format()
+						tournament.update_global_score(match_instance.result(result))
+						new_match_list.append(match_instance.serialize())
+					tour.match_list = new_match_list
+					tour.close()
+					tour.__str__()
+					tournament.rounds_list[-1] = tour.serialize()
+					tournament.save()
 
 			# Back to Home menu
 			elif choice == "5":

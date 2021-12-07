@@ -86,8 +86,8 @@ class TournamentsView:
 
 		"""
 		description = input("Description: ")
+		print("")
 		return description
-
 
 	@staticmethod
 	def prompt_for_allocating_players():
@@ -147,7 +147,8 @@ class TournamentsView:
 		Returns:
 			result (str): result of input
 		"""
-		result = input(f"Result match Player {player1_id} - {player1_name} vs Player {player2_id} - {player2_name}' (1/N/2): ")
+		result = input(
+			f"Result match Player {player1_id} - {player1_name} vs Player {player2_id} - {player2_name}' (1/N/2): ")
 		return result
 
 	@staticmethod
@@ -160,6 +161,12 @@ class TournamentsView:
 	def rounds_limit_reached():
 		""" Message if limit of rounds by tournament has been reached (cf. constant MAX_ROUNDS_NUMBER in Maincontroller)"""
 		print("Limit of rounds by tournament already reached.")
+		input("")
+
+	@staticmethod
+	def tournament_already_resulted():
+		""" Message if last round of the tournament has alredy been resulted"""
+		print("Last round already resulted. Please ask administrator if any change.")
 		input("")
 
 	@staticmethod
