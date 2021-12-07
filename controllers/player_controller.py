@@ -20,6 +20,7 @@ class PlayersController(Controller):
 				first_name = self.view.prompt_for_first_name()
 				last_name = self.view.prompt_for_last_name()
 				ranking = self.view.prompt_for_ranking()
+				# Ranking must be an integer
 				while True:
 					try:
 						ranking = int(ranking)
@@ -27,6 +28,7 @@ class PlayersController(Controller):
 						ranking = self.view.invalid_format()
 					else:
 						break
+				# Birth date: simple REGEX
 				birth_date = self.view.prompt_for_birth_date()
 				while not re.search('^\\d\\d/\\d\\d/\\d\\d$', birth_date):
 					birth_date = self.view.invalid_format()
@@ -62,8 +64,7 @@ class PlayersController(Controller):
 				self.controller = controllers.home_controller.HomeController()
 				self.controller.start(HomeView)
 
-			# To generate automatically players
-			# (not displayed on the user's interface)
+			# To generate automatically players (not displayed on the user's interface)
 			elif choice == "a":
 				number = self.view.prompt_for_how_many_players()
 				for player in range(int(number)):
@@ -71,7 +72,7 @@ class PlayersController(Controller):
 					new_player.auto_creation()
 					new_player.__str__()
 					new_player.save()
-			elif choice == "q":
+			elif choice in ["q", "4"]:
 				stop()
 			else:
 				pass

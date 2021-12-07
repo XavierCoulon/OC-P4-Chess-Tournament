@@ -1,6 +1,6 @@
 """ Player class and methods """
 
-from faker import Faker
+from faker import Faker  # to generate "fake" players
 from random import randint, choice
 from datetime import datetime
 from controllers.main_controller import table_players, User
@@ -20,20 +20,10 @@ class Player:
 		""" Used to print a Player object """
 		print(f"Player: {self.first_name} {self.last_name}  / ranking: {self.ranking}")
 
-	# @property
-	# def gender(self):
-	# 	return self._gender
-	#
-	# @gender.setter
-	# def gender(self, value):
-	# 	while value not in ["F", "M"]:
-	# 		value = input("Gender: format non valid, please retry (F or M): ")
-	# 	self._gender = value
-
 	def auto_creation(self):
 		""" Used to create automatically a player, using Faker module """
 		fake = Faker("fr_FR")
-		self.ranking = randint(1, 300)
+		self.ranking = randint(1, 50)
 		self.first_name = fake.first_name()
 		self.last_name = fake.last_name()
 		self.birth_date = datetime.strftime(fake.date_of_birth(), "%d/%m/%y")

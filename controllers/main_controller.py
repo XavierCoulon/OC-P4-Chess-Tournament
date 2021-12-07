@@ -3,8 +3,9 @@
 import sys
 from tinydb import TinyDB, Query
 
-
+# Limit of rounds by default
 MAX_ROUNDS_NUMBER = 4
+# Information regarding database
 db = TinyDB("data/db.json", indent=4)
 User = Query()
 table_players = db.table("players")

@@ -98,7 +98,7 @@ class TournamentsController(Controller):
 						match_instance.player1_name,
 						match_instance.player2_name
 					)
-					match_instance.result(result, tournament)
+					tournament.update_global_score(match_instance.result(result, tournament))
 					new_match_list.append(match_instance.serialize())
 				tour.match_list = new_match_list
 				tour.close()

@@ -1,9 +1,9 @@
 """ Round class and methods """
 
+from datetime import datetime
 from controllers.main_controller import table_tournament, table_players, User
 from models.tournament import Tournament
 from models.match import Match
-from datetime import datetime
 
 
 class Round:
@@ -54,13 +54,12 @@ class Round:
 
 		"""
 
-		# get back players' list
-		players_list = table_tournament.get(User.name == tournament_name).get(
-			"players_list")
 		ranking_list = []
 		matches = []
 		players_ranking = []
-		# get back rankings
+		# retrieve players' list from the database
+		players_list = table_tournament.get(User.name == tournament_name).get("players_list")
+		# retrieve rankings
 		for player in players_list:
 			ranking = table_players.get(doc_id=int(player)).get("ranking")
 			ranking_list.append(ranking)
@@ -79,8 +78,10 @@ class Round:
 				matches.append(match.serialize())
 			self.match_list = matches
 			self.name = 1
+		
 		# Condition: if a round already exists
 		else:
+			# Retrieve matches already played in the tournament
 			matchs_already_played = []
 			rounds_list = table_tournament.get(User.name == tournament_name).get("rounds_list")
 			for tour in rounds_list:
@@ -88,35 +89,39 @@ class Round:
 					matchs_already_played.append([match.get("player1_id"), match.get("player2_id")])
 
 			players_ranking = sorted(players_ranking, key=lambda element: element[1])
+			# Get a list witn player_id, ranking and score
 			players_ranking_score = []
 			for player in players_ranking:
 				players_ranking_score.append(
 					player + [players_list[player[0]]])
 			players_ranking_score = sorted(players_ranking_score, key=lambda element: (-element[2], element[1]))
 
-			players_list = []
+			# Get a list with only plays' ids
+			players_ids = []
 			for player in players_ranking_score:
-				players_list.append(int(player[0]))
+				players_ids.append(int(player[0]))
+
+			# Generate list of new matches
 			match_list = []
-			while len(players_list) != 0:
+			while len(players_ids) != 0:
 				i = 0
 				j = 1
-				match = [players_list[i], players_list[j]]
+				match = [players_ids[i], players_ids[j]]
 				match_reverse = match[::-1]
 				while (match in matchs_already_played or match_reverse in matchs_already_played) and j < len(
 					matchs_already_played):
 					j += 1
-					match = [players_list[i], players_list[j]]
+					match = [players_ids[i], players_ids[j]]
 					match_reverse = match[::-1]
 				if j == len(matchs_already_played):
-					match_list.append(players_list[0])
-					match_list.append(players_list[1])
-					players_list.remove(players_list[0])
-					players_list.remove(players_list[1])
+					match_list.append(players_ids[0])
+					match_list.append(players_ids[1])
+					players_ids.remove(players_ids[0])
+					players_ids.remove(players_ids[1])
 				else:
 					match_list.append(match)
-					players_list.remove(match[0])
-					players_list.remove(match[1])
+					players_ids.remove(match[0])
+					players_ids.remove(match[1])
 
 			new_round = []
 			for match in match_list:
@@ -125,21 +130,6 @@ class Round:
 				new_round.append(match.serialize())
 			self.match_list = new_round
 			self.name += 1
-
-		# First version
-			# players_ranking = sorted(players_ranking, key=lambda element: element[1])
-			# players_ranking_score = []
-			# for player in players_ranking:
-			# 	players_ranking_score.append(
-			# 		player + [players_list[player[0]]])
-			# players_ranking_score = sorted(players_ranking_score, key=lambda element: (-element[2], element[1]))
-			# new_round = []
-			# for x, y in zip(*[iter(players_ranking_score)] * 2):
-			# 	match = Match(player1_id=int(x[0]), player1_score=0, player2_id=int(y[0]), player2_score=0)
-			# 	match.__str__()
-			# 	new_round.append(match.serialize())
-			# self.match_list = new_round
-			# self.name += 1
 
 		self.start_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 		self.end_date = None
@@ -151,8 +141,6 @@ class Round:
 		""" Close a round, automatic after resulting all matches"""
 		self.finished = True
 		self.end_date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-
-	# return self
 
 	@staticmethod
 	def deserialize(tournament_name):

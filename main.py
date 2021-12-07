@@ -6,8 +6,8 @@ from views.home_view import HomeView
 
 def main():
 	""" Main function"""
-	game = controllers.home_controller.HomeController()
-	game.start(HomeView)
+	app = controllers.home_controller.HomeController()
+	app.start(HomeView)
 
 
 if __name__ == "__main__":
