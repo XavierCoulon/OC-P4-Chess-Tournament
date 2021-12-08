@@ -48,13 +48,28 @@ class PlayersController(Controller):
 
 			# Update the ranking of a player
 			elif choice == "2":
-				result = self.view.prompt_for_update_ranking()
+				player_id = self.view.prompt_for_player_id()
+				# Player ID has to be int
+				try:
+					int(player_id)
+				except ValueError:
+					self.view.player_not_found()
+					break
+				ranking = self.view.prompt_for_ranking()
+				# Ranking has to be int
+				while True:
+					try:
+						ranking = int(ranking)
+					except ValueError:
+						ranking = self.view.invalid_format()
+					else:
+						break
 				# If player does not exist in database
-				if not table_players.get(doc_id=int(result[0])):
+				if not table_players.get(doc_id=int(player_id)):
 					self.view.player_not_found()
 				else:
-					player = Player.deserialize(int(result[0]))
-					player.update_ranking(int(result[1]))
+					player = Player.deserialize(int(player_id))
+					player.update_ranking(int(ranking))
 					player.__str__()
 					player.save()
 

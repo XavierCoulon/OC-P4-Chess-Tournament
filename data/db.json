@@ -1,7 +1,7 @@
 {
     "players": {
         "1": {
-            "ranking": 33,
+            "ranking": 1,
             "first_name": "Alex",
             "last_name": "Masson",
             "birth_date": "22/03/47",
@@ -57,12 +57,108 @@
             "description": "Tromper aucun."
         },
         "8": {
-            "ranking": 12,
+            "ranking": 25,
             "first_name": "Xavier",
             "last_name": "COULON",
             "birth_date": "12/12/98",
             "gender": "M",
             "description": "Test"
+        },
+        "9": {
+            "ranking": 1,
+            "first_name": "Xavier",
+            "last_name": "COULON",
+            "birth_date": "12/01/98",
+            "gender": "F",
+            "description": "Test"
+        },
+        "10": {
+            "ranking": 1,
+            "first_name": "Test",
+            "last_name": "Test",
+            "birth_date": "12/98/21",
+            "gender": "M",
+            "description": "qqdvsqdv"
+        },
+        "11": {
+            "ranking": 44,
+            "first_name": "Fr\u00e9d\u00e9ric",
+            "last_name": "Brunet",
+            "birth_date": "27/06/03",
+            "gender": "F",
+            "description": "Sec gr\u00e2ce voisin."
+        },
+        "12": {
+            "ranking": 30,
+            "first_name": "Jos\u00e9phine",
+            "last_name": "Fischer",
+            "birth_date": "14/08/20",
+            "gender": "F",
+            "description": "Voyager produire."
+        },
+        "13": {
+            "ranking": 12,
+            "first_name": "\u00c9douard",
+            "last_name": "Briand",
+            "birth_date": "01/03/80",
+            "gender": "M",
+            "description": "Enfin interroger."
+        },
+        "14": {
+            "ranking": 1,
+            "first_name": "Christiane",
+            "last_name": "Dos Santos",
+            "birth_date": "23/10/82",
+            "gender": "M",
+            "description": "Cheval quart."
+        },
+        "15": {
+            "ranking": 14,
+            "first_name": "Jacques",
+            "last_name": "Hoarau",
+            "birth_date": "17/04/54",
+            "gender": "F",
+            "description": "Horizon ann\u00e9e."
+        },
+        "16": {
+            "ranking": 8,
+            "first_name": "Thibault",
+            "last_name": "Petitjean",
+            "birth_date": "25/02/13",
+            "gender": "M",
+            "description": "Finir monter."
+        },
+        "17": {
+            "ranking": 3,
+            "first_name": "Constance",
+            "last_name": "Da Costa",
+            "birth_date": "15/09/95",
+            "gender": "F",
+            "description": "Parfaitement deux."
+        },
+        "18": {
+            "ranking": 38,
+            "first_name": "Alexandre",
+            "last_name": "Bonneau",
+            "birth_date": "18/06/74",
+            "gender": "F",
+            "description": "Habiter si rapport."
+        },
+        "19": {
+            "ranking": 33,
+            "first_name": "Claude",
+            "last_name": "L\u00e9vy",
+            "birth_date": "18/04/42",
+            "gender": "F",
+            "description": "Mati\u00e8re lire but."
+        },
+        "20": {
+            "ranking": 21,
+            "first_name": "Maurice",
+            "last_name": "Valentin",
+            "birth_date": "18/11/29",
+            "gender": "F",
+            "description": "\u00c2g\u00e9 r\u00e9flexion."
         }
     },
     "tournaments": {
@@ -105,109 +201,69 @@
         "5": {
             "name": "TEST",
             "location": "Paris",
-            "dates": "12/10/21",
+            "dates": "10/12/21",
             "players_list": {
-                "1": 1,
-                "2": 4,
-                "7": 3,
-                "5": 0
+                "1": 0.5,
+                "2": 0.5,
+                "3": 0.5,
+                "4": 0.5,
+                "5": 2,
+                "6": 0.5,
+                "7": 0.5,
+                "8": 0.5
             },
             "rounds_list": [
                 {
                     "name": 1,
-                    "start_date": "07/12/2021 16:35:03",
-                    "end_date": "07/12/2021 16:35:33",
+                    "start_date": "08/12/2021 16:11:27",
+                    "end_date": "08/12/2021 16:11:42",
                     "match_list": [
                         {
-                            "player1_id": 2,
-                            "player1_score": 1,
-                            "player2_id": 5,
-                            "player2_score": 0,
-                            "player1_name": "Valentin",
-                            "player2_name": "Dumas"
+                            "player1_id": 1,
+                            "player1_score": 0.5,
+                            "player2_id": 4,
+                            "player2_score": 0.5,
+                            "player1_name": "Masson",
+                            "player2_name": "Caron"
                         },
                         {
-                            "player1_id": 7,
-                            "player1_score": 1,
-                            "player2_id": 1,
-                            "player2_score": 0,
-                            "player1_name": "Lemaire",
-                            "player2_name": "Masson"
-                        }
-                    ]
-                },
-                {
-                    "name": 2,
-                    "start_date": "07/12/2021 16:38:29",
-                    "end_date": "07/12/2021 16:49:32",
-                    "match_list": [
-                        {
                             "player1_id": 2,
-                            "player1_score": 1,
-                            "player2_id": 7,
-                            "player2_score": 0,
+                            "player1_score": 0.5,
+                            "player2_id": 8,
+                            "player2_score": 0.5,
                             "player1_name": "Valentin",
+                            "player2_name": "COULON"
+                        },
+                        {
+                            "player1_id": 3,
+                            "player1_score": 0.5,
+                            "player2_id": 7,
+                            "player2_score": 0.5,
+                            "player1_name": "Perez",
                             "player2_name": "Lemaire"
                         },
                         {
-                            "player1_id": 1,
-                            "player1_score": 1,
+                            "player1_id": 6,
+                            "player1_score": 0,
                             "player2_id": 5,
-                            "player2_score": 0,
-                            "player1_name": "Masson",
+                            "player2_score": 1,
+                            "player1_name": "Jacquot",
                             "player2_name": "Dumas"
-                        }
-                    ]
-                },
-                {
-                    "name": 3,
-                    "start_date": "07/12/2021 16:51:29",
-                    "end_date": "07/12/2021 16:51:52",
-                    "match_list": [
-                        {
-                            "player1_id": 2,
-                            "player1_score": 1,
-                            "player2_id": 1,
-                            "player2_score": 0,
-                            "player1_name": "Valentin",
-                            "player2_name": "Masson"
-                        },
-                        {
-                            "player1_id": 7,
-                            "player1_score": 1,
-                            "player2_id": 5,
-                            "player2_score": 0,
-                            "player1_name": "Lemaire",
-                            "player2_name": "Dumas"
-                        }
-                    ]
-                },
-                {
-                    "name": 4,
-                    "start_date": "07/12/2021 16:51:59",
-                    "end_date": "07/12/2021 16:52:05",
-                    "match_list": [
-                        {
-                            "player1_id": 2,
-                            "player1_score": 1,
-                            "player2_id": 5,
-                            "player2_score": 0,
-                            "player1_name": "Valentin",
-                            "player2_name": "Dumas"
-                        },
-                        {
-                            "player1_id": 7,
-                            "player1_score": 1,
-                            "player2_id": 1,
-                            "player2_score": 0,
-                            "player1_name": "Lemaire",
-                            "player2_name": "Masson"
                         }
                     ]
                 }
             ],
-            "game_type": "Rapid",
+            "game_type": "rapid",
             "description": "Test"
+        },
+        "6": {
+            "name": "qdfvqdfv",
+            "location": "qfvqfdv",
+            "dates": "12/01/12",
+            "players_list": {},
+            "rounds_list": [],
+            "game_type": "RaPID",
+            "description": "qvqdfv"
         }
     }
 }

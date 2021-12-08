@@ -9,7 +9,7 @@ class PlayersView:
 	@staticmethod
 	def display_menu():
 		""" UI for handling players"""
-		print("******* PLAYERS MENU *******")
+		print("******* 1. PLAYERS MENU *******")
 		print("1. Create manually a player.")
 		print("2. Change player's ranking.")
 		print("3. Back to Home menu.")
@@ -25,11 +25,10 @@ class PlayersView:
 		return choice
 
 	@staticmethod
-	def prompt_for_update_ranking():
-		""" UI for updating ranking's player"""
-		player_id = input("ID player? ")
-		new_ranking = int(input("New ranking? "))
-		return [player_id, new_ranking]
+	def prompt_for_player_id():
+		""" UI to search a player_id"""
+		player_id = input("Player ID ? ")
+		return player_id
 
 	@staticmethod
 	def prompt_for_first_name():
@@ -95,7 +94,7 @@ class PlayersView:
 	@staticmethod
 	def player_not_found():
 		""" Message if data not found in db"""
-		print("Player not found in db.")
+		print("Player ID not found in db.")
 		input("")
 
 	@staticmethod

@@ -92,12 +92,13 @@ class Round:
 					player + [players_list[player[0]]])
 			players_ranking_score = sorted(players_ranking_score, key=lambda element: (-element[2], element[1]))
 
-			# Get a list with only plays' ids
+			# Get a list with only players' ids
 			players_ids = []
 			for player in players_ranking_score:
 				players_ids.append(int(player[0]))
 
-			# Generate list of new matches
+			# Generate list of new matches (rule: follwoing the ranking / global score. If match already played,
+			# jump to the next player. Force if all matches have been played.
 			match_list = []
 			while len(players_ids) != 0:
 				i = 0

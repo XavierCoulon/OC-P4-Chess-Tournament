@@ -18,8 +18,8 @@ class Match:
 	def __str__(self):
 		""" Used to print a Match object """
 		print(
-			f"Player {self.player1_id} - {self.player1_name} vs Player {self.player2_id} -"
-			f" {self.player2_name} (score: {self.player1_score} - {self.player2_score})"
+			f"Player {self.player1_id}: {self.player1_name} \tvs\t Player {self.player2_id}: "
+			f" {self.player2_name}\t (score: {self.player1_score} - {self.player2_score})"
 		)
 
 	def serialize(self):

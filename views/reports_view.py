@@ -9,7 +9,7 @@ class ReportsView:
 	@staticmethod
 	def display_menu():
 		""" Display Reports menu"""
-		print("******* REPORTS MENU *******")
+		print("******* 3. REPORTS MENU *******")
 		print("1. All players (sorted by ranking).")
 		print("2. All players (sorted by name).")
 		print("3. All players of a tournament (sorted by ranking).")
@@ -34,7 +34,7 @@ class ReportsView:
 		"""
 		print("*******PLAYER's LIST *******")
 		for player in players_data:
-			print(f"ID: {player[0]} | Nom: {player[1]} | Prénom: {player[2]} | Ranking: {player[3]} ")
+			print(f"ID: {player[0]} \t| {player[1]:20s} {player[2]:20s} \t| Ranking: {player[3]} ")
 		input("")
 
 	@staticmethod
@@ -48,7 +48,7 @@ class ReportsView:
 		print("*******PLAYER's LIST *******")
 		for player in players_data:
 			print(
-				f"ID: {player[0]} | Nom: {player[1]} | Prénom: {player[2]} | Ranking: {player[3]} | Score: {player[4]}")
+				f"ID: {player[0]} \t| {player[1]:20s} {player[2]:20s} \t| Ranking: {player[3]} \t| Score: {player[4]}")
 		input("")
 
 	@staticmethod
@@ -62,8 +62,8 @@ class ReportsView:
 		print("******* TOURNAMENT's LIST *******")
 		for tournament in tournaments:
 			print(
-				f"Name: {tournament[0]} | ID: {tournament[1]} | Players list: {tournament[2]}"
-				f" Location: {tournament[3]} | Game Type: {tournament[4]} | Description: {tournament[5]}")
+				f"Name: {tournament[0]:20} \t| Number of players: {len(tournament[2])} "
+				f" Location: {tournament[3]:20} \t| Game Type: {tournament[4]} \t| Description: {tournament[5]}")
 		input("")
 
 	@staticmethod

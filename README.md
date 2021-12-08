@@ -34,7 +34,7 @@ Menus:
 - create a player
 - change player's ranking
 > Tournament
-- create a tournament
+
 - create a new round
 - result the last round
 > Reports
@@ -43,7 +43,6 @@ Menus:
 ## 3. How to generate  a flake8-html file
 
 ```bash
-
-pip install flake8-html
 flake8 --format=html --htmldir=flake-report
 ```
+- "index.html" will be stored in folder "flake-report".

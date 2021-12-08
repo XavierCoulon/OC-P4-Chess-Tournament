@@ -9,7 +9,7 @@ class TournamentsView:
 	@staticmethod
 	def display_menu():
 		""" UI for handling players"""
-		print("******* TOURNAMENT MENU *******")
+		print("******* 2. TOURNAMENTS MENU *******")
 		print("1. Create manually a tournament.")
 		print("2. Add players.")
 		print("3. Create a new round.")

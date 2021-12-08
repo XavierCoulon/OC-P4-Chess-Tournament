@@ -11,7 +11,7 @@ class HomeView:
 		""" Display Home menu"""
 		print("******* HOME MENU *******")
 		print("1. PLAYERS")
-		print("2. TOURNAMENT")
+		print("2. TOURNAMENTS")
 		print("3. REPORTS")
 		print("4. QUIT")
 		choice = input("Your choice: ")
