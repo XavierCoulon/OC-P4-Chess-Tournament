@@ -6,7 +6,7 @@ from controllers.reports_controller import ReportsController
 from views.tournament_view import TournamentsView
 from views.reports_view import ReportsView
 from views.player_view import PlayersView
-from controllers.main_controller import Controller, stop
+from controllers.main_controller import Controller
 
 
 class HomeController(Controller):
@@ -27,10 +27,8 @@ class HomeController(Controller):
 			elif choice == "3":
 				self.controller = ReportsController()
 				self.controller.start(ReportsView)
-			elif choice in ["q", "4"]:
-				stop()
 			else:
-				pass
+				Controller.stop()
 
 
 if __name__ == "__main__":

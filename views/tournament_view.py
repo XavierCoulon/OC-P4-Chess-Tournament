@@ -158,8 +158,14 @@ class TournamentsView:
 		input("")
 
 	@staticmethod
+	def no_round_found():
+		""" Message if no round have been created in the tournament."""
+		print("No round found. Please create a round first.")
+		input("")
+
+	@staticmethod
 	def rounds_limit_reached():
-		""" Message if limit of rounds by tournament has been reached (cf. constant MAX_ROUNDS_NUMBER in Maincontroller)"""
+		""" Message if limit of rounds by tournament has been reached (cf. constant MAX_ROUNDS_NUMBER)"""
 		print("Limit of rounds by tournament already reached.")
 		input("")
 
@@ -167,6 +173,12 @@ class TournamentsView:
 	def tournament_already_resulted():
 		""" Message if last round of the tournament has alredy been resulted"""
 		print("Last round already resulted. Please ask administrator if any change.")
+		input("")
+
+	@staticmethod
+	def last_round_not_resulted():
+		""" Message if last round of the tournament has not been resulted yet"""
+		print("Last round has not been resulted yet, creation of a new round impossible.")
 		input("")
 
 	@staticmethod

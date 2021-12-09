@@ -2,7 +2,7 @@
 
 import controllers.home_controller
 import views.reports_view
-from controllers.main_controller import Controller, stop, User
+from controllers.main_controller import Controller, User
 from controllers.main_controller import table_tournament, table_players
 from views.home_view import HomeView
 from views.tournament_view import TournamentsView
@@ -43,7 +43,7 @@ class ReportsController(Controller):
 				self.controller = controllers.home_controller.HomeController()
 				self.controller.start(HomeView)
 			elif choice in ["q", "10"]:
-				stop()
+				self.stop()
 			else:
 				pass
 

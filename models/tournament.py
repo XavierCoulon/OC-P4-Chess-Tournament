@@ -27,7 +27,7 @@ class Tournament:
 
 	def __str__(self):
 		""" Used to print a Tournament object """
-		print(f"Tournament '{self.name}  / Player: {self.players_list} / Game type: {self.game_type}' created.")
+		print(f"Tournament '{self.name}  / Players: {self.players_list} / Game type: {self.game_type}' created.")
 
 	def auto_creation(self):
 		""" Used to create automatically a tournament, using Faker module """

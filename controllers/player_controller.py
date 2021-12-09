@@ -1,8 +1,8 @@
 """ Controller managing Players """
 
 import controllers.home_controller
-import re
-from controllers.main_controller import Controller, stop, table_players
+from datetime import datetime
+from controllers.main_controller import Controller, table_players
 from models.player import Player
 from views.home_view import HomeView
 
@@ -27,10 +27,15 @@ class PlayersController(Controller):
 						ranking = self.view.invalid_format()
 					else:
 						break
-				# Birth date: simple REGEX
+				# Birth date format checked
 				birth_date = self.view.prompt_for_birth_date()
-				while not re.search('^\\d\\d/\\d\\d/\\d\\d$', birth_date):
-					birth_date = self.view.invalid_format()
+				while True:
+					try:
+						datetime.strptime(birth_date, "%d/%m/%y")
+					except ValueError:
+						birth_date = self.view.invalid_format()
+					else:
+						break
 				gender = self.view.prompt_for_gender()
 				while gender not in ["F", "M"]:
 					gender = self.view.invalid_format()
@@ -87,7 +92,7 @@ class PlayersController(Controller):
 					new_player.__str__()
 					new_player.save()
 			elif choice in ["q", "4"]:
-				stop()
+				self.stop()
 			else:
 				pass
 

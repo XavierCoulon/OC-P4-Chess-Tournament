@@ -4,8 +4,7 @@ import sys
 import os
 from tinydb import TinyDB, Query
 
-# Limit of rounds by default
-MAX_ROUNDS_NUMBER = 4
+
 # Information regarding database
 data_folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
 if not os.path.exists(data_folder):
@@ -31,11 +30,11 @@ class Controller:
 	def run(self):
 		pass
 
-
-def stop():
-	""" To stop the program"""
-	print("Program stopped.")
-	sys.exit()
+	@staticmethod
+	def stop():
+		""" To stop the program"""
+		print("Program stopped.")
+		sys.exit()
 
 
 if __name__ == "__main__":

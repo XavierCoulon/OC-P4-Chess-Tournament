@@ -1,13 +1,16 @@
 """ Controller managing Tournaments (including rounds and matches) """
 
-import re
 import controllers.home_controller
-from controllers.main_controller import Controller, stop, MAX_ROUNDS_NUMBER, table_tournament, User, table_players
+from datetime import datetime
+from controllers.main_controller import Controller, table_tournament, User, table_players
 from models.tournament import Tournament
 from models.round import Round
 from models.match import Match
 from views.home_view import HomeView
 from views.tournament_view import TournamentsView
+
+# Limit of rounds by default
+MAX_ROUNDS_NUMBER = 4
 
 
 class TournamentsController(Controller):
@@ -22,9 +25,16 @@ class TournamentsController(Controller):
 				name = self.view.prompt_for_name()
 				location = self.view.prompt_for_location()
 				date = self.view.prompt_for_date()
-				while not re.search('^\\d\\d/\\d\\d/\\d\\d$', date):
-					date = self.view.invalid_format()
+				# Check date format
+				while True:
+					try:
+						datetime.strptime(date, "%d/%m/%y")
+					except ValueError:
+						date = self.view.invalid_format()
+					else:
+						break
 				game_type = self.view.prompt_for_game_type()
+				# Check game type
 				while game_type.upper() not in ["RAPID", "BULLET", "BLITZ"]:
 					game_type = self.view.invalid_format()
 				description = self.view.prompt_for_description()
@@ -66,22 +76,25 @@ class TournamentsController(Controller):
 
 			# Create a new round
 			elif choice == "3":
-				prompt = TournamentsView.prompt_for_selecting_tournament()
+				tournament_name = TournamentsView.prompt_for_selecting_tournament()
 				# Check if tournament exists in database
-				if not table_tournament.get(User.name == prompt):
+				if not table_tournament.get(User.name == tournament_name):
 					self.view.tournament_not_found()
 				else:
-					tournament = Tournament.deserialize(prompt)
+					tournament = Tournament.deserialize(tournament_name)
+					last_round = Round.deserialize(tournament_name)
 					if not tournament.players_list:
 						self.view.players_missing()
+						break
+					elif len(tournament.rounds_list) == MAX_ROUNDS_NUMBER:
+						self.view.rounds_limit_reached()
+						break
+					elif tournament.rounds_list and not last_round.end_date:
+						self.view.last_round_not_resulted()
+						break
 					else:
-						if len(tournament.rounds_list) == MAX_ROUNDS_NUMBER:
-							self.view.rounds_limit_reached()
-							break
-						else:
-							new_round = Round.deserialize(prompt)
-							tournament.rounds_list += [new_round.create_round(prompt).serialize()]
-							tournament.save()
+						tournament.rounds_list += [last_round.create_round(tournament_name).serialize()]
+						tournament.save()
 
 			# Result matches of the last Round
 			elif choice == "4":
@@ -91,12 +104,15 @@ class TournamentsController(Controller):
 					self.view.tournament_not_found()
 				else:
 					tournament = Tournament.deserialize(prompt)
+					# If no round found in the tournament
+					if not tournament.rounds_list:
+						self.view.no_round_found()
+						break
 					tour = Round.deserialize(prompt)
 					# If last round has already been resulted, warning and quit
 					if tour.end_date:
 						self.view.tournament_already_resulted()
 						break
-
 					new_match_list = []
 					for match in tour.match_list:
 						match_instance = Match.deserialize(match)
@@ -129,7 +145,7 @@ class TournamentsController(Controller):
 				new_tournament.save()
 
 			elif choice in ["q", "6"]:
-				stop()
+				self.stop()
 			else:
 				pass
 
