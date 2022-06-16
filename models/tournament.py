@@ -57,7 +57,7 @@ class Tournament:
 		self.players_list = players_list
 
 	def update_global_score(self, result):
-		""" Update global score for each player in players_list (following resut of a match)
+		""" Update global score for each player in players_list (following result of a match)
 
 		Args:
 			result (list): player1_id, player1_score, player2_id, player2_score
